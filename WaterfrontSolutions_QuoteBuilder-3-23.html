@@ -236,10 +236,14 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           <div class="field-row">
             <div class="field"><label>Project Type</label>
               <select id="b-type">
-                <option>General Construction</option><option>Property Maintenance</option>
-                <option>Roofing</option><option>Deck / Outdoor</option>
-                <option>Covered Porch / Deck Cover</option>
-                <option>Foundation / Concrete</option><option>Other</option>
+                <option>Manufactured Home Setup</option>
+                <option>Used Home Reconditioning</option>
+                <option>Skirting & Underpinning</option>
+                <option>Roof-Over / Roofing</option>
+                <option>Remodel / Repair</option>
+                <option>Utilities & Hookup</option>
+                <option>Demolition / Removal</option>
+                <option>Other</option>
               </select>
             </div>
             <div class="field"><label>Status</label>
@@ -390,23 +394,193 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
         <div class="section-body">
           <div class="field"><label>Project Type</label>
             <select id="to-type" onchange="toSwitchType()">
-              <option value="deck">Deck / Outdoor Structure</option>
-              <option value="porch">Covered Porch</option>
-              <option value="roof">Roofing</option>
-              <option value="framing">Room Addition / Wall Framing</option>
-              <option value="concrete">Concrete & Foundation</option>
-              <option value="carport">Carport</option>
-              <option value="blockwall">Block / Retaining Wall</option>
+              <optgroup label="Manufactured / Mobile Home">
+                <option value="skirting">Skirting / Underpinning</option>
+                <option value="setup">Home Set, Block &amp; Anchor</option>
+                <option value="roofover">Roof-Over / Roof Coating</option>
+                <option value="bellywrap">Underbelly / Belly Wrap</option>
+              </optgroup>
+              <optgroup label="Additions &amp; Outdoor">
+                <option value="deck">Deck / Steps / Ramp</option>
+                <option value="roof">Shingle Roof Replacement</option>
+                <option value="framing">Room Addition / Wall Framing</option>
+                <option value="concrete">Concrete &amp; Foundation</option>
+                <option value="carport">Carport</option>
+              </optgroup>
             </select>
           </div>
           <div class="field"><label>Project Name / Description</label>
-            <input id="to-name" placeholder="e.g. Back deck addition, 12×16"/>
+            <input id="to-name" placeholder="e.g. 16×76 single-wide skirting, vinyl"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKIRTING / UNDERPINNING inputs -->
+      <div id="to-skirting" class="to-panel">
+        <div class="section">
+          <div class="section-head"><span class="section-title">Skirting / Underpinning</span></div>
+          <div class="section-body">
+            <div class="field-row">
+              <div class="field"><label>Home length (ft)</label><input type="number" id="sk-len" value="76" min="8" step="1" oninput="toCalc()"/></div>
+              <div class="field"><label>Home width (ft)</label><input type="number" id="sk-wid" value="16" min="8" step="1" oninput="toCalc()"/></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Avg skirting height (in)</label><input type="number" id="sk-ht" value="28" min="8" max="72" step="1" oninput="toCalc()"/></div>
+              <div class="field"><label>Skirting material</label>
+                <select id="sk-mat" onchange="toCalc()">
+                  <option value="vinyl">Vinyl panels</option>
+                  <option value="insulated">Insulated vinyl</option>
+                  <option value="metal">Metal / aluminum</option>
+                  <option value="faux">Faux rock / brick</option>
+                  <option value="block">Concrete block (mortared)</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Access doors</label><input type="number" id="sk-doors" value="1" min="0" max="6" step="1" oninput="toCalc()"/></div>
+              <div class="field"><label>Extra vents (beyond code min)</label><input type="number" id="sk-vents" value="0" min="0" max="40" step="1" oninput="toCalc()"/></div>
+            </div>
+            <div class="field">
+              <label>Ground vapor barrier under home</label>
+              <select id="sk-vapor" onchange="toCalc()">
+                <option value="yes">Yes — 6-mil poly over crawl</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOME SET, BLOCK & ANCHOR inputs -->
+      <div id="to-setup" class="to-panel" style="display:none">
+        <div class="section">
+          <div class="section-head"><span class="section-title">Home Set, Block &amp; Anchor</span></div>
+          <div class="section-body">
+            <div class="field-row">
+              <div class="field"><label>Sections</label>
+                <select id="su-sect" onchange="toCalc()">
+                  <option value="1">Single-wide (1)</option>
+                  <option value="2" selected>Double-wide (2)</option>
+                  <option value="3">Triple-wide (3)</option>
+                </select>
+              </div>
+              <div class="field"><label>Home length (ft)</label><input type="number" id="su-len" value="76" min="20" step="1" oninput="toCalc()"/></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Total width (ft)</label><input type="number" id="su-wid" value="28" min="8" step="1" oninput="toCalc()"/></div>
+              <div class="field"><label>Pier spacing (ft OC)</label>
+                <select id="su-space" onchange="toCalc()">
+                  <option value="6">6 ft OC</option>
+                  <option value="8" selected>8 ft OC</option>
+                  <option value="10">10 ft OC</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Footing type</label>
+                <select id="su-foot" onchange="toCalc()">
+                  <option value="abs">ABS plastic pads</option>
+                  <option value="poured">Poured concrete pads</option>
+                  <option value="runner">Continuous runner footing</option>
+                </select>
+              </div>
+              <div class="field"><label>Wind / anchor zone</label>
+                <select id="su-zone" onchange="toCalc()">
+                  <option value="1">Zone I (standard)</option>
+                  <option value="2">Zone II (high wind)</option>
+                  <option value="3">Zone III (coastal/extreme)</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label>Ground vapor barrier</label>
+              <select id="su-vapor" onchange="toCalc()">
+                <option value="yes">Yes — 6-mil poly over crawl</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROOF-OVER / COATING inputs -->
+      <div id="to-roofover" class="to-panel" style="display:none">
+        <div class="section">
+          <div class="section-head"><span class="section-title">Roof-Over / Roof Coating</span></div>
+          <div class="section-body">
+            <div class="field-row">
+              <div class="field"><label>Roof length (ft)</label><input type="number" id="ro-len" value="76" min="8" step="1" oninput="toCalc()"/></div>
+              <div class="field"><label>Roof width (ft)</label><input type="number" id="ro-wid" value="28" min="8" step="1" oninput="toCalc()"/></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Roof type</label>
+                <select id="ro-type" onchange="toCalc()">
+                  <option value="elastomeric">Elastomeric coating (roof-over)</option>
+                  <option value="aluminum">Aluminum fibered coating</option>
+                  <option value="tpo">TPO / EPDM membrane</option>
+                  <option value="metal">Metal roof-over system</option>
+                </select>
+              </div>
+              <div class="field"><label>Roof profile</label>
+                <select id="ro-profile" onchange="toCalc()">
+                  <option value="flat">Flat / bowstring (×1.05)</option>
+                  <option value="low" selected>Low pitch 2:12 (×1.10)</option>
+                  <option value="pitch">Pitched 4:12 (×1.20)</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Coats (coating only)</label><input type="number" id="ro-coats" value="2" min="1" max="3" step="1" oninput="toCalc()"/></div>
+              <div class="field"><label>Add roof insulation board</label>
+                <select id="ro-insul" onchange="toCalc()">
+                  <option value="no">No</option>
+                  <option value="yes">Yes — rigid foam under roof-over</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UNDERBELLY / BELLY WRAP inputs -->
+      <div id="to-bellywrap" class="to-panel" style="display:none">
+        <div class="section">
+          <div class="section-head"><span class="section-title">Underbelly / Belly Wrap</span></div>
+          <div class="section-body">
+            <div class="field-row">
+              <div class="field"><label>Home length (ft)</label><input type="number" id="be-len" value="76" min="8" step="1" oninput="toCalc()"/></div>
+              <div class="field"><label>Home width (ft)</label><input type="number" id="be-wid" value="16" min="8" step="1" oninput="toCalc()"/></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Scope</label>
+                <select id="be-scope" onchange="toCalc()">
+                  <option value="full">Full belly board replacement</option>
+                  <option value="patch">Spot patch / repair</option>
+                </select>
+              </div>
+              <div class="field"><label>Patches (patch scope)</label><input type="number" id="be-patch" value="4" min="0" max="40" step="1" oninput="toCalc()"/></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Replace insulation</label>
+                <select id="be-insul" onchange="toCalc()">
+                  <option value="none">No — reuse existing</option>
+                  <option value="r11" selected>Yes — R-11</option>
+                  <option value="r19">Yes — R-19</option>
+                </select>
+              </div>
+              <div class="field"><label>Rodent barrier mesh</label>
+                <select id="be-rodent" onchange="toCalc()">
+                  <option value="no">No</option>
+                  <option value="yes">Yes — wire mesh at penetrations</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- DECK inputs -->
-      <div id="to-deck" class="to-panel">
+      <div id="to-deck" class="to-panel" style="display:none">
         <div class="section">
           <div class="section-head"><span class="section-title">Deck Dimensions</span></div>
           <div class="section-body">
@@ -1623,262 +1797,204 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 // TASK LIBRARY
 // ══════════════════════════════════════════════════════════
 const TASKS = [
-  {name:"Hand dig trench / footer excavation",cat:"Site Work",icon:"⛏️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.55,rateKey:"gen",matPerUnit:0,notes:"By hand; rocky soil add 50%"},
-  {name:"Machine excavation — footer trenching",cat:"Site Work",icon:"🚜",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.1,rateKey:"equip",matPerUnit:0,notes:"Mini excavator; incl. operator"},
-  {name:"Site grading & leveling",cat:"Site Work",icon:"🚜",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.009,rateKey:"equip",matPerUnit:0,notes:"Rough grade, machine"},
-  {name:"Backfill & compaction",cat:"Site Work",icon:"⛏️",unit:"cy",unitLabel:"cu yd",hrsPerUnit:0.45,rateKey:"gen",matPerUnit:0,notes:"Hand compact per lift"},
-  {name:"Debris haul-off / cleanup",cat:"Site Work",icon:"🚛",unit:"load",unitLabel:"loads",hrsPerUnit:2.5,rateKey:"gen",matPerUnit:0,notes:"Per dump truck load"},
-  {name:"Form & pour footer (12\"×8\")",cat:"Concrete",icon:"🏗️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.45,rateKey:"sk",matPerUnit:8,notes:"Incl. forms, rebar, concrete"},
-  {name:"Form & pour footer (16\"×8\")",cat:"Concrete",icon:"🏗️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.55,rateKey:"sk",matPerUnit:12,notes:"Standard residential footer"},
-  {name:"Pier / sonotube footing",cat:"Concrete",icon:"🔩",unit:"ea",unitLabel:"each",hrsPerUnit:1.8,rateKey:"sk",matPerUnit:38,notes:"12\" tube, 3 ft deep, incl. rebar; auger crew rate"},
-  {name:"Concrete slab — 4\" reinforced",cat:"Concrete",icon:"🟫",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.08,rateKey:"sk",matPerUnit:6,notes:"Incl. gravel, vapor barrier, wire mesh"},
-  {name:"Concrete slab — 6\" reinforced",cat:"Concrete",icon:"🟫",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.1,rateKey:"sk",matPerUnit:8.5,notes:"Garage or heavy load slab"},
-  {name:"CMU block wall — 8\" standard",cat:"Masonry",icon:"🧱",unit:"sqft",unitLabel:"sq ft of wall",hrsPerUnit:.28,rateKey:"mason",matPerUnit:4.5,notes:"~1.125 blocks/sqft; mortar incl."},
-  {name:"CMU block wall — 12\" block",cat:"Masonry",icon:"🧱",unit:"sqft",unitLabel:"sq ft of wall",hrsPerUnit:.33,rateKey:"mason",matPerUnit:6,notes:"Heavy structural walls"},
-  {name:"Block laying — individual count",cat:"Masonry",icon:"🧱",unit:"blk",unitLabel:"blocks",hrsPerUnit:0.22,rateKey:"mason",matPerUnit:3.2,notes:"~4–5 blocks/hr per mason"},
-  {name:"Brick laying — standard",cat:"Masonry",icon:"🧱",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.5,rateKey:"mason",matPerUnit:8.5,notes:"~150–200 bricks/day per mason"},
-  {name:"Concrete block retaining wall",cat:"Masonry",icon:"🧱",unit:"sqft",unitLabel:"sq ft face",hrsPerUnit:0.4,rateKey:"mason",matPerUnit:9.8,notes:"Incl. batter, drainage"},
-  {name:"Deck joist framing (16\" OC)",cat:"Deck",icon:"🪵",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.062,rateKey:"sk",matPerUnit:2.5,notes:"Incl. joist hangers"},
-  {name:"Deck decking — pressure treated",cat:"Deck",icon:"🪵",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.055,rateKey:"sk",matPerUnit:3.8,notes:"5/4×6 PT; incl. fasteners"},
-  {name:"Deck decking — composite / Trex",cat:"Deck",icon:"🪵",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.065,rateKey:"sk",matPerUnit:13.5,notes:"Hidden fastener system"},
-  {name:"Deck posts — 4×4 or 6×6 set",cat:"Deck",icon:"🪵",unit:"ea",unitLabel:"each",hrsPerUnit:0.9,rateKey:"sk",matPerUnit:19.5,notes:"Incl. post base, plumb & brace (sonotubes pre-augered)"},
-  {name:"Deck railings — wood balusters",cat:"Deck",icon:"🪵",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.75,rateKey:"sk",matPerUnit:15.5,notes:"Top/bottom rail + balusters 4\" OC"},
-  {name:"Deck stairs — wood stringers",cat:"Deck",icon:"🪵",unit:"riser",unitLabel:"risers",hrsPerUnit:1.25,rateKey:"sk",matPerUnit:24,notes:"Per riser incl. treads"},
-  {name:"Deck ledger & beam install",cat:"Deck",icon:"🪵",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.5,rateKey:"sk",matPerUnit:7.5,notes:"Lag bolts, hangers, beam pockets"},
-  {name:"Covered porch over deck — layout & load check",cat:"Covered Porch",icon:"🏡",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.018,rateKey:"fore",matPerUnit:0.35,notes:"Layout, existing deck inspection, fasteners, small layout materials"},
-  {name:"Covered porch over deck — post footings & load transfer",cat:"Covered Porch",icon:"🏡",unit:"ea",unitLabel:"post locations",hrsPerUnit:4.2,rateKey:"sk",matPerUnit:155,notes:"New pier/sonotube, base, blocking, load path through deck"},
-  {name:"Covered porch over deck — reinforce existing deck framing",cat:"Covered Porch",icon:"🏡",unit:"sqft",unitLabel:"sq ft of deck",hrsPerUnit:0.11,rateKey:"sk",matPerUnit:4.85,notes:"Sister joists, blocking, connectors, beam/post upgrades as needed"},
-  {name:"Covered porch — ledger / house roof tie-in",cat:"Covered Porch",icon:"🏡",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.85,rateKey:"sk",matPerUnit:18.5,notes:"Ledger, flashing, house attachment, water management"},
-  {name:"Covered porch — columns & beam package",cat:"Covered Porch",icon:"🏡",unit:"lf",unitLabel:"lin ft of front beam",hrsPerUnit:0.7,rateKey:"sk",matPerUnit:22,notes:"6×6 posts, double beam, caps, bases, structural hardware"},
-  {name:"Covered porch — roof framing package",cat:"Covered Porch",icon:"🏡",unit:"sqft",unitLabel:"sq ft roof area",hrsPerUnit:0.16,rateKey:"sk",matPerUnit:6.75,notes:"Rafters/trusses, ridge, ties, blocking, hurricane hardware"},
-  {name:"Covered porch — roof sheathing & dry-in",cat:"Covered Porch",icon:"🏡",unit:"sqft",unitLabel:"sq ft roof area",hrsPerUnit:0.035,rateKey:"sk",matPerUnit:1.45,notes:"OSB, underlayment, drip edge, nails"},
-  {name:"Covered porch roofing — architectural shingles",cat:"Covered Porch",icon:"🏡",unit:"sqft",unitLabel:"sq ft roof area",hrsPerUnit:0.028,rateKey:"roof",matPerUnit:2.15,notes:"Starter, field shingles, cap, roof nails"},
-  {name:"Covered porch roofing — standing seam metal",cat:"Covered Porch",icon:"🏡",unit:"sqft",unitLabel:"sq ft roof area",hrsPerUnit:0.07,rateKey:"roof",matPerUnit:8.35,notes:"Panels, clips/screws, trim, closures"},
-  {name:"Covered porch — T&G pine ceiling",cat:"Covered Porch",icon:"🏡",unit:"sqft",unitLabel:"sq ft ceiling",hrsPerUnit:0.095,rateKey:"sk",matPerUnit:3.65,notes:"1×6 T&G pine, finish nails, trim allowance"},
-  {name:"Covered porch — beadboard ceiling",cat:"Covered Porch",icon:"🏡",unit:"sqft",unitLabel:"sq ft ceiling",hrsPerUnit:0.085,rateKey:"sk",matPerUnit:4.1,notes:"Beadboard, trim, finish fasteners"},
-  {name:"Covered porch — screen enclosure",cat:"Covered Porch",icon:"🏡",unit:"lf",unitLabel:"lin ft perimeter",hrsPerUnit:1.15,rateKey:"sk",matPerUnit:31,notes:"Screen frames, screen, spline, door allowance spread by perimeter"},
-  {name:"Covered porch — EZE-Breeze enclosure",cat:"Covered Porch",icon:"🏡",unit:"lf",unitLabel:"lin ft perimeter",hrsPerUnit:1.35,rateKey:"sk",matPerUnit:82,notes:"Vinyl panels, track, hardware, install labor"},
-  {name:"Covered porch — knee wall / half-wall",cat:"Covered Porch",icon:"🏡",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.9,rateKey:"sk",matPerUnit:24,notes:"Framed half-wall, sheathing, trim, cap material"},
-  {name:"Covered porch — electrical rough-in",cat:"Covered Porch",icon:"🏡",unit:"ea",unitLabel:"fixtures / fans",hrsPerUnit:1.05,rateKey:"elec",matPerUnit:32,notes:"Fan/light box, switch leg, wire, exterior-rated boxes"},
-  {name:"Covered porch — gutters & downspouts",cat:"Covered Porch",icon:"🏡",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.18,rateKey:"sk",matPerUnit:6.25,notes:"5\" K-style gutter, hangers, outlets, downspout allowance"},
-  {name:"Wood wall framing — exterior",cat:"Framing",icon:"🏠",unit:"lf",unitLabel:"lin ft of wall",hrsPerUnit:0.52,rateKey:"sk",matPerUnit:9.5,notes:"2×6, 16\" OC, 8ft wall"},
-  {name:"Wood wall framing — interior",cat:"Framing",icon:"🏠",unit:"lf",unitLabel:"lin ft of wall",hrsPerUnit:0.42,rateKey:"sk",matPerUnit:6.5,notes:"2×4, non-bearing partition"},
-  {name:"Floor joist system (I-joist)",cat:"Framing",icon:"🏠",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.068,rateKey:"sk",matPerUnit:4.2,notes:"16\" OC, standard span"},
-  {name:"Roof truss set",cat:"Framing",icon:"🏠",unit:"ea",unitLabel:"trusses",hrsPerUnit:0.7,rateKey:"sk",matPerUnit:28,notes:"Set only; trusses billed separately"},
-  {name:"Wall sheathing — OSB",cat:"Framing",icon:"🏠",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.004,rateKey:"sk",matPerUnit:1.05,notes:"3-person crew ~250 sqft/hr"},
-  {name:"Roof sheathing — OSB",cat:"Framing",icon:"🏠",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.0038,rateKey:"sk",matPerUnit:0.9,notes:"Pitched roof"},
-  {name:"Header install (door/window)",cat:"Framing",icon:"🏠",unit:"ea",unitLabel:"each",hrsPerUnit:1.2,rateKey:"sk",matPerUnit:42,notes:"Standard LVL or doubled 2×"},
-  {name:"Tear-off — asphalt shingles",cat:"Roofing",icon:"🏚️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.012,rateKey:"roof",matPerUnit:0,notes:"1 layer; ~85 sqft/hr per roofer"},
-  {name:"Felt / synthetic underlayment",cat:"Roofing",icon:"🏚️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.005,rateKey:"roof",matPerUnit:0.18,notes:"15# felt or synthetic"},
-  {name:"3-tab asphalt shingles",cat:"Roofing",icon:"🏚️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.022,rateKey:"roof",matPerUnit:1.0,notes:"~45 sqft/hr; starter, field, ridge"},
-  {name:"Architectural shingles",cat:"Roofing",icon:"🏚️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.025,rateKey:"roof",matPerUnit:1.42,notes:"Dimensional / laminate"},
-  {name:"Metal roofing — standing seam",cat:"Roofing",icon:"🏚️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.065,rateKey:"roof",matPerUnit:7.8,notes:"Pre-fab panels; ~80 sqft/hr"},
-  {name:"Ridge cap / hip shingles",cat:"Roofing",icon:"🏚️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.08,rateKey:"roof",matPerUnit:1.5,notes:"Cut & nail cap shingles"},
-  {name:"Drip edge installation",cat:"Roofing",icon:"🏚️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.08,rateKey:"roof",matPerUnit:0.42,notes:"Aluminum drip edge"},
-  {name:"Roof flashing (step/counter)",cat:"Roofing",icon:"🏚️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.25,rateKey:"roof",matPerUnit:3,notes:"Wall, chimney, valley"},
-  {name:"Roof vent installation",cat:"Roofing",icon:"🏚️",unit:"ea",unitLabel:"each",hrsPerUnit:.75,rateKey:"roof",matPerUnit:25,notes:"Box vent or power vent"},
-  {name:"Gutters — aluminum 5\" K-style",cat:"Roofing",icon:"🏚️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.15,rateKey:"sk",matPerUnit:4.5,notes:"Incl. end caps, hangers"},
-  {name:"Exterior painting — walls",cat:"Painting",icon:"🎨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.012,rateKey:"paint",matPerUnit:0.38,notes:"~80 sqft/hr; 2 coats"},
-  {name:"Interior painting — 1 coat",cat:"Painting",icon:"🎨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.008,rateKey:"paint",matPerUnit:0.22,notes:"~120 sqft/hr flat walls"},
-  {name:"Interior painting — 2 coats",cat:"Painting",icon:"🎨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.014,rateKey:"paint",matPerUnit:0.38,notes:"Prime + finish"},
-  {name:"Ceiling painting — roll",cat:"Painting",icon:"🎨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.011,rateKey:"paint",matPerUnit:0.22,notes:"~90 sqft/hr overhead"},
-  {name:"Trim / baseboard painting",cat:"Painting",icon:"🎨",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.1,rateKey:"paint",matPerUnit:.15,notes:"~10 LF/hr"},
-  {name:"Deck stain / seal",cat:"Painting",icon:"🎨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.015,rateKey:"paint",matPerUnit:0.38,notes:"Roller & brush; incl. prep"},
-  {name:"Pressure washing — surface",cat:"Painting",icon:"💧",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.005,rateKey:"gen",matPerUnit:0,notes:"~200 sqft/hr"},
-  {name:"Drywall hang — 1/2\" walls",cat:"Interior",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.016,rateKey:"sk",matPerUnit:.55,notes:"2-person crew"},
-  {name:"Drywall tape & finish Level 4",cat:"Interior",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.004,rateKey:"sk",matPerUnit:0.22,notes:"3-coat tape"},
-  {name:"Insulation — batt (walls)",cat:"Interior",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.01,rateKey:"gen",matPerUnit:0.72,notes:"R-15 or R-21"},
-  {name:"LVP / laminate flooring",cat:"Interior",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.032,rateKey:"sk",matPerUnit:3.8,notes:"Floating; incl. underlayment"},
-  {name:"Tile flooring — 12×12",cat:"Interior",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.125,rateKey:"sk",matPerUnit:6.5,notes:"Mortar, tile, grout"},
-  {name:"Trim / baseboard install",cat:"Interior",icon:"🔲",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.1,rateKey:"sk",matPerUnit:1.5,notes:"Nail & caulk"},
-  {name:"Door install — prehung interior",cat:"Interior",icon:"🚪",unit:"ea",unitLabel:"each",hrsPerUnit:2,rateKey:"sk",matPerUnit:0,notes:"Frame, shim; hardware extra"},
-  {name:"Window installation — standard",cat:"Interior",icon:"🪟",unit:"ea",unitLabel:"each",hrsPerUnit:3,rateKey:"sk",matPerUnit:0,notes:"Replacement or new"},
-  {name:"Gutter cleaning",cat:"Maintenance",icon:"🧹",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.05,rateKey:"gen",matPerUnit:0,notes:"Single story"},
-  {name:"Caulking — windows/doors exterior",cat:"Maintenance",icon:"🧹",unit:"ea",unitLabel:"each",hrsPerUnit:0.5,rateKey:"gen",matPerUnit:2.2,notes:"Per opening"},
-  {name:"Drywall patch — small (<6\")",cat:"Maintenance",icon:"🧹",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"sk",matPerUnit:8,notes:"Cut, patch, tape, 2-coat"},
-  {name:"Drywall patch — large (>6\")",cat:"Maintenance",icon:"🧹",unit:"ea",unitLabel:"each",hrsPerUnit:3,rateKey:"sk",matPerUnit:20,notes:"Backer board method"},
-  {name:"Replace rotted trim/fascia",cat:"Maintenance",icon:"🧹",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.5,rateKey:"sk",matPerUnit:4.5,notes:"Remove old, install new, prime"},
-  {name:"Fence repair — wood panel",cat:"Maintenance",icon:"🧹",unit:"ea",unitLabel:"panels",hrsPerUnit:1.25,rateKey:"gen",matPerUnit:38,notes:"Remove, replace 6ft panel"},
-  {name:"General labor / misc.",cat:"Maintenance",icon:"🔧",unit:"hr",unitLabel:"hours",hrsPerUnit:1,rateKey:"gen",matPerUnit:0,notes:"Catch-all general labor"},
+  // ══ TRANSPORT & SETUP ════════════════════════════════════════════════════
+  {name:"Home transport — single-wide (≤50 mi)",cat:"Transport & Setup",icon:"🚚",unit:"ea",unitLabel:"per move",hrsPerUnit:8,rateKey:"sub",matPerUnit:650,notes:"Toter, pilot car, move permit; add per-mile beyond 50 mi"},
+  {name:"Home transport — per section over 50 mi",cat:"Transport & Setup",icon:"🚚",unit:"mi",unitLabel:"miles",hrsPerUnit:0.06,rateKey:"sub",matPerUnit:6.5,notes:"Additional haul mileage per section"},
+  {name:"Set & block — single-wide",cat:"Transport & Setup",icon:"🏗️",unit:"ea",unitLabel:"per home",hrsPerUnit:16,rateKey:"sk",matPerUnit:480,notes:"Position, block, shim & level on piers"},
+  {name:"Set & mate — double-wide",cat:"Transport & Setup",icon:"🏗️",unit:"ea",unitLabel:"per home",hrsPerUnit:32,rateKey:"sk",matPerUnit:950,notes:"Set both halves, mate marriage line, block & level"},
+  {name:"Set & mate — triple-wide",cat:"Transport & Setup",icon:"🏗️",unit:"ea",unitLabel:"per home",hrsPerUnit:48,rateKey:"sk",matPerUnit:1450,notes:"Set 3 sections, mate seams, block & level"},
+  {name:"Re-level home — single-wide",cat:"Transport & Setup",icon:"📏",unit:"ea",unitLabel:"per home",hrsPerUnit:6,rateKey:"sk",matPerUnit:60,notes:"Re-shim piers, check level, reset doors/windows"},
+  {name:"Re-level home — double-wide",cat:"Transport & Setup",icon:"📏",unit:"ea",unitLabel:"per home",hrsPerUnit:10,rateKey:"sk",matPerUnit:110,notes:"Re-shim piers both sides, check marriage line"},
+  {name:"Marriage line close-up & seal",cat:"Transport & Setup",icon:"🔩",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.35,rateKey:"sk",matPerUnit:3.5,notes:"Gasket/foam, lag bolts, ridge strap, weatherseal"},
+  {name:"Concrete block pier — stack & shim",cat:"Transport & Setup",icon:"🧱",unit:"ea",unitLabel:"per pier",hrsPerUnit:0.6,rateKey:"sk",matPerUnit:14,notes:"8×8×16 block stack, cap, hardwood/plastic shims"},
+  {name:"Adjustable steel pier / jack stand",cat:"Transport & Setup",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:0.5,rateKey:"sk",matPerUnit:42,notes:"Screw-jack steel pier; faster re-level"},
+  {name:"ABS footer pad — 16×16",cat:"Transport & Setup",icon:"⬛",unit:"ea",unitLabel:"each",hrsPerUnit:0.15,rateKey:"gen",matPerUnit:8.5,notes:"Plastic load pad under main-frame piers"},
+  {name:"ABS footer pad — perimeter 8×16",cat:"Transport & Setup",icon:"⬛",unit:"ea",unitLabel:"each",hrsPerUnit:0.12,rateKey:"gen",matPerUnit:5.5,notes:"Perimeter / sidewall support pads"},
+  {name:"Poured concrete footing pad",cat:"Transport & Setup",icon:"🟫",unit:"ea",unitLabel:"each",hrsPerUnit:0.8,rateKey:"sk",matPerUnit:22,notes:"24×24×8 poured pad where soil/code requires"},
+  {name:"Centerline / ridge-beam support post",cat:"Transport & Setup",icon:"🪵",unit:"ea",unitLabel:"each",hrsPerUnit:0.7,rateKey:"sk",matPerUnit:34,notes:"Marriage-wall support post & pad (double-wide)"},
+  {name:"Temporary cribbing / blocking",cat:"Transport & Setup",icon:"🪵",unit:"ea",unitLabel:"each",hrsPerUnit:0.4,rateKey:"gen",matPerUnit:18,notes:"Crib stacks for lifting / temporary support"},
 
-  // ── ELECTRICAL ─────────────────────────────────────────
-  {name:"Electrical rough-in — new construction",cat:"Electrical",icon:"⚡",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.025,rateKey:"elec",matPerUnit:1.65,notes:"~40 hrs/1,600 sqft; boxes, wire, home runs"},
-  {name:"Outlet / receptacle rough-in",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:0.75,rateKey:"elec",matPerUnit:4.5,notes:"Box, wire home run; new construction"},
-  {name:"Switch rough-in",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:0.5,rateKey:"elec",matPerUnit:3.5,notes:"Single-pole; 3-way add 30% time"},
-  {name:"Light fixture rough-in (box & wire)",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:0.75,rateKey:"elec",matPerUnit:5.5,notes:"Box, feed wire; fixture install separate"},
-  {name:"Light fixture install (trim-out)",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:.5,rateKey:"elec",matPerUnit:0,notes:"Hang & connect; fixture cost separate"},
-  {name:"Recessed can light install",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:.75,rateKey:"elec",matPerUnit:18,notes:"Incl. can, trim, wire connection"},
-  {name:"Ceiling fan install",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"elec",matPerUnit:0,notes:"Brace box, wire, hang; fan cost separate"},
-  {name:"200A panel install / upgrade",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:8,rateKey:"elec",matPerUnit:350,notes:"Panel only; service entrance wire separate"},
-  {name:"Circuit breaker addition",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"elec",matPerUnit:25,notes:"Add single circuit to existing panel"},
-  {name:"GFCI outlet install",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:1.0,rateKey:"elec",matPerUnit:28,notes:"Kitchen, bath, exterior — code required"},
-  {name:"EV charger circuit & outlet",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:3,rateKey:"elec",matPerUnit:85,notes:"240V/50A dedicated circuit, NEMA 14-50"},
-  {name:"Smoke / CO detector install",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:.5,rateKey:"elec",matPerUnit:35,notes:"Hardwired interconnected"},
-  {name:"Whole-house rewire (per room)",cat:"Electrical",icon:"⚡",unit:"room",unitLabel:"rooms",hrsPerUnit:8,rateKey:"elec",matPerUnit:60,notes:"Avg per room; includes panel work"},
+  // ══ ANCHORING & TIE-DOWNS ════════════════════════════════════════════════
+  {name:"Ground auger anchor — 4ft soil",cat:"Anchoring & Tie-Downs",icon:"⚓",unit:"ea",unitLabel:"each",hrsPerUnit:0.5,rateKey:"sk",matPerUnit:16,notes:"Helix auger anchor driven into soil; per HUD/state spacing"},
+  {name:"Frame tie strap & buckle",cat:"Anchoring & Tie-Downs",icon:"⚓",unit:"ea",unitLabel:"each",hrsPerUnit:0.35,rateKey:"sk",matPerUnit:9.5,notes:"Galv. strap from anchor to I-beam frame"},
+  {name:"Over-the-top tie strap (single-wide)",cat:"Anchoring & Tie-Downs",icon:"⚓",unit:"ea",unitLabel:"each",hrsPerUnit:0.6,rateKey:"sk",matPerUnit:13,notes:"Vertical strap over roof to anchor (older single-wides)"},
+  {name:"Longitudinal / sidewall anchor",cat:"Anchoring & Tie-Downs",icon:"⚓",unit:"ea",unitLabel:"each",hrsPerUnit:0.5,rateKey:"sk",matPerUnit:18,notes:"End-wall longitudinal stabilizing anchor"},
+  {name:"Stabilizer plate (anti-rotation)",cat:"Anchoring & Tie-Downs",icon:"⚓",unit:"ea",unitLabel:"each",hrsPerUnit:0.3,rateKey:"sk",matPerUnit:12,notes:"Driven plate prevents anchor head rotation"},
+  {name:"Concrete slab / runner anchor",cat:"Anchoring & Tie-Downs",icon:"⚓",unit:"ea",unitLabel:"each",hrsPerUnit:0.45,rateKey:"sk",matPerUnit:11,notes:"Expansion/epoxy anchor into slab or runner"},
+  {name:"Engineered anchor system (high-wind)",cat:"Anchoring & Tie-Downs",icon:"⚓",unit:"ea",unitLabel:"each",hrsPerUnit:0.8,rateKey:"sk",matPerUnit:38,notes:"XI-2 / engineered system for Zone II/III wind"},
 
-  // ── PLUMBING ────────────────────────────────────────────
-  {name:"Plumbing rough-in — new construction",cat:"Plumbing",icon:"🔧",unit:"fixture",unitLabel:"fixtures",hrsPerUnit:4.0,rateKey:"plumb",matPerUnit:135,notes:"Per fixture unit; DWV + supply lines"},
-  {name:"Toilet rough-in",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:2.8,rateKey:"plumb",matPerUnit:48,notes:"Flange, supply, DWV; fixture separate"},
-  {name:"Toilet install (trim-out)",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"plumb",matPerUnit:0,notes:"Set & connect; toilet cost separate"},
-  {name:"Sink / lavatory rough-in",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:2.5,rateKey:"plumb",matPerUnit:38,notes:"Supply & drain rough-in"},
-  {name:"Sink install (trim-out)",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:2,rateKey:"plumb",matPerUnit:0,notes:"Set, connect supply & drain"},
-  {name:"Bathtub / shower rough-in",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:5,rateKey:"plumb",matPerUnit:80,notes:"Supply, drain, P-trap, vent"},
-  {name:"Water heater install — tank",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:3,rateKey:"plumb",matPerUnit:0,notes:"Set, connect supply/return & T&P relief; heater separate"},
-  {name:"Kitchen sink rough-in",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:3,rateKey:"plumb",matPerUnit:50,notes:"Supply, drain, dishwasher stub"},
-  {name:"Outdoor hose bib install",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:2,rateKey:"plumb",matPerUnit:25,notes:"Frost-free; incl. interior shutoff"},
-  {name:"PEX water line — main trunk",cat:"Plumbing",icon:"🔧",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.05,rateKey:"plumb",matPerUnit:.85,notes:"3/4\" PEX; manifold system"},
-  {name:"PEX branch line to fixture",cat:"Plumbing",icon:"🔧",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.07,rateKey:"plumb",matPerUnit:.65,notes:"1/2\" PEX hot & cold"},
-  {name:"PVC / ABS drain line",cat:"Plumbing",icon:"🔧",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.15,rateKey:"plumb",matPerUnit:2,notes:"4\" or 3\" DWV; incl. fittings"},
-  {name:"Sump pump install",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:4,rateKey:"plumb",matPerUnit:0,notes:"Pit, pump, discharge line; pump separate"},
+  // ══ SKIRTING & UNDERPINNING ══════════════════════════════════════════════
+  {name:"Vinyl skirting — installed",cat:"Skirting & Underpinning",icon:"🏚️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.28,rateKey:"side",matPerUnit:9.5,notes:"Panels + top/bottom rail, ~28\" avg height"},
+  {name:"Insulated vinyl skirting",cat:"Skirting & Underpinning",icon:"🏚️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.32,rateKey:"side",matPerUnit:15,notes:"Foam-backed panels for cold climates"},
+  {name:"Metal / aluminum skirting",cat:"Skirting & Underpinning",icon:"🏚️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.3,rateKey:"side",matPerUnit:12,notes:"Ribbed metal panels + rail"},
+  {name:"Faux rock / brick skirting panels",cat:"Skirting & Underpinning",icon:"🏚️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.4,rateKey:"side",matPerUnit:26,notes:"Simulated stone/brick foam-composite panels"},
+  {name:"Concrete block skirting (mortared)",cat:"Skirting & Underpinning",icon:"🧱",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.55,rateKey:"mason",matPerUnit:18,notes:"Mortared CMU perimeter; semi-permanent"},
+  {name:"Skirting top & bottom rail only",cat:"Skirting & Underpinning",icon:"📏",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.08,rateKey:"side",matPerUnit:2.4,notes:"Track/rail replacement"},
+  {name:"Foundation vent (auto/manual)",cat:"Skirting & Underpinning",icon:"🌬️",unit:"ea",unitLabel:"each",hrsPerUnit:0.3,rateKey:"side",matPerUnit:14,notes:"Code: 1 sq ft vent / 150 sq ft crawl area"},
+  {name:"Skirting access door 18×30",cat:"Skirting & Underpinning",icon:"🚪",unit:"ea",unitLabel:"each",hrsPerUnit:0.4,rateKey:"side",matPerUnit:32,notes:"Lockable crawl access panel"},
+  {name:"Ground vapor barrier (6-mil)",cat:"Skirting & Underpinning",icon:"🟦",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.004,rateKey:"gen",matPerUnit:0.14,notes:"6-mil poly over crawl ground, taped & lapped"},
 
-  // ── HVAC ────────────────────────────────────────────────
-  {name:"Flex duct — branch run",cat:"HVAC",icon:"🌀",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.022,rateKey:"hvac",matPerUnit:1.4,notes:"6–8\" flex duct to diffuser"},
-  {name:"Sheet metal duct — trunk line",cat:"HVAC",icon:"🌀",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.065,rateKey:"hvac",matPerUnit:9.5,notes:"12–18\" round spiral; incl. hangers"},
-  {name:"Supply / return register install",cat:"HVAC",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:0.5,rateKey:"hvac",matPerUnit:20,notes:"Cut in, frame, install grille"},
-  {name:"Split system HVAC — install",cat:"HVAC",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:16.0,rateKey:"hvac",matPerUnit:0,notes:"Air handler + condenser set & line set; unit separate"},
-  {name:"Thermostat install / replace",cat:"HVAC",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:1,rateKey:"hvac",matPerUnit:0,notes:"Wire & program; stat cost separate"},
-  {name:"Duct wrap insulation",cat:"HVAC",icon:"🌀",unit:"sqft",unitLabel:"sq ft duct surface",hrsPerUnit:.01,rateKey:"hvac",matPerUnit:.80,notes:"1.5\" fiberglass wrap; ~100 sqft/hr"},
-  {name:"Dryer vent install",cat:"HVAC",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"hvac",matPerUnit:22,notes:"4\" metal duct to exterior; cap & damper"},
-  {name:"Bath exhaust fan install",cat:"HVAC",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:2,rateKey:"hvac",matPerUnit:45,notes:"Fan, duct to exterior, cap"},
-  {name:"Range hood duct — install",cat:"HVAC",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:2.5,rateKey:"hvac",matPerUnit:35,notes:"6–8\" duct to exterior; cap incl."},
+  // ══ UNDERBELLY / BELLY ═══════════════════════════════════════════════════
+  {name:"Belly board (bottom board) replace",cat:"Underbelly / Belly",icon:"🛡️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.05,rateKey:"sk",matPerUnit:0.85,notes:"Poly bottom board / belly wrap fabric"},
+  {name:"Belly wrap patch / repair",cat:"Underbelly / Belly",icon:"🛡️",unit:"ea",unitLabel:"each patch",hrsPerUnit:0.6,rateKey:"sk",matPerUnit:18,notes:"Cut, insulate, patch & tape belly tear"},
+  {name:"Underbelly insulation — R-11",cat:"Underbelly / Belly",icon:"🧊",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.02,rateKey:"sk",matPerUnit:0.55,notes:"Batt insulation re-installed in belly cavity"},
+  {name:"Underbelly insulation — R-19",cat:"Underbelly / Belly",icon:"🧊",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.025,rateKey:"sk",matPerUnit:0.85,notes:"Upgraded belly insulation, cold climates"},
+  {name:"Belly repair tape (poly seam)",cat:"Underbelly / Belly",icon:"🩹",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.03,rateKey:"sk",matPerUnit:0.45,notes:"Poly/butyl belly tape for seams & patches"},
+  {name:"Rodent barrier / wire mesh",cat:"Underbelly / Belly",icon:"🐀",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.02,rateKey:"gen",matPerUnit:0.5,notes:"¼\" hardware cloth over belly penetrations"},
 
-  // ── SIDING & EXTERIOR ───────────────────────────────────
-  {name:"Vinyl siding — install",cat:"Siding",icon:"🏠",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.042,rateKey:"sk",matPerUnit:2.9,notes:"~25 sqft/hr; starter, J-channel incl."},
-  {name:"Vinyl siding — tear off",cat:"Siding",icon:"🏠",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.015,rateKey:"gen",matPerUnit:0,notes:"Strip & dispose; ~65 sqft/hr"},
-  {name:"Fiber cement (Hardie) siding",cat:"Siding",icon:"🏠",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.058,rateKey:"sk",matPerUnit:5.5,notes:"Heavier; ~18 sqft/hr; nails, trim incl."},
-  {name:"House wrap / moisture barrier",cat:"Siding",icon:"🏠",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.006,rateKey:"gen",matPerUnit:0.28,notes:"Tyvek or equivalent; tape seams"},
-  {name:"Vinyl soffit — install",cat:"Siding",icon:"🏠",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.06,rateKey:"sk",matPerUnit:2,notes:"Incl. F-channel, vented panels"},
-  {name:"Vinyl soffit — lin ft",cat:"Siding",icon:"🏠",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.25,rateKey:"sk",matPerUnit:4,notes:"Measured along eave; incl. channels"},
-  {name:"Fascia board — replace",cat:"Siding",icon:"🏠",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.35,rateKey:"sk",matPerUnit:3.50,notes:"Remove, install PVC or wood fascia"},
-  {name:"Window wrap / trim (per window)",cat:"Siding",icon:"🏠",unit:"ea",unitLabel:"each",hrsPerUnit:1,rateKey:"sk",matPerUnit:12,notes:"Aluminum coil wrap or PVC trim"},
-  {name:"Exterior door wrap / trim",cat:"Siding",icon:"🏠",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"sk",matPerUnit:18,notes:"Full perimeter coil or PVC wrap"},
-  {name:"Wood privacy fence — install",cat:"Siding",icon:"🌲",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.75,rateKey:"sk",matPerUnit:18,notes:"6ft privacy; post, rail, pickets"},
-  {name:"Chain link fence — install",cat:"Siding",icon:"🌲",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.5,rateKey:"sk",matPerUnit:12,notes:"4ft chain link; posts, top rail, fabric"},
+  // ══ FOUNDATION & SITE WORK ═══════════════════════════════════════════════
+  {name:"Site grading & leveling",cat:"Foundation & Site Work",icon:"🚜",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.009,rateKey:"equip",matPerUnit:0,notes:"Rough grade pad, machine; slope for drainage"},
+  {name:"Gravel pad / crush-run base",cat:"Foundation & Site Work",icon:"⬜",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.006,rateKey:"gen",matPerUnit:0.85,notes:"4\" crush & run pad under home, compacted"},
+  {name:"Concrete runner footing (poured)",cat:"Foundation & Site Work",icon:"🟫",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.45,rateKey:"sk",matPerUnit:12,notes:"Continuous poured runner under main beams"},
+  {name:"Permanent foundation — block perimeter",cat:"Foundation & Site Work",icon:"🧱",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.55,rateKey:"mason",matPerUnit:16,notes:"Mortared CMU stem wall for FHA/VA conversion"},
+  {name:"Engineer foundation certification",cat:"Foundation & Site Work",icon:"📋",unit:"ea",unitLabel:"per home",hrsPerUnit:1,rateKey:"sub",matPerUnit:550,notes:"PE inspection & cert (FHA/VA financing)"},
+  {name:"Machine excavation — trenching",cat:"Foundation & Site Work",icon:"🚜",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.1,rateKey:"equip",matPerUnit:0,notes:"Mini excavator; utility/footing trench"},
+  {name:"Driveway gravel — spread & grade",cat:"Foundation & Site Work",icon:"⬜",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.005,rateKey:"gen",matPerUnit:0.8,notes:"4\" depth crush & run; grade & compact"},
+  {name:"Debris haul-off / cleanup",cat:"Foundation & Site Work",icon:"🚛",unit:"load",unitLabel:"loads",hrsPerUnit:2.5,rateKey:"gen",matPerUnit:0,notes:"Per dump-truck load"},
 
-  // ── DEMOLITION ──────────────────────────────────────────
-  {name:"Interior demo — room strip",cat:"Demo",icon:"🔨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.06,rateKey:"gen",matPerUnit:0,notes:"Drywall, flooring, trim; ~16 sqft/hr"},
-  {name:"Concrete demo — flatwork",cat:"Demo",icon:"🔨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.09,rateKey:"gen",matPerUnit:0,notes:"Jackhammer & remove; ~12 sqft/hr"},
-  {name:"Drywall removal",cat:"Demo",icon:"🔨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.025,rateKey:"gen",matPerUnit:0,notes:"Strip, bag, stage for disposal"},
-  {name:"Flooring tear-out — hard surface",cat:"Demo",icon:"🔨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.02,rateKey:"gen",matPerUnit:0,notes:"Tile, hardwood, LVP removal"},
-  {name:"Flooring tear-out — carpet",cat:"Demo",icon:"🔨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.008,rateKey:"gen",matPerUnit:0,notes:"Pull, roll, bag; ~120 sqft/hr"},
-  {name:"Deck demolition",cat:"Demo",icon:"🔨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.06,rateKey:"gen",matPerUnit:0,notes:"Dismantle, stage lumber for disposal"},
-  {name:"Shed / structure demo",cat:"Demo",icon:"🔨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.15,rateKey:"gen",matPerUnit:0,notes:"Tear down, sort, stage debris"},
-  {name:"Dumpster rental coordination",cat:"Demo",icon:"🚛",unit:"ea",unitLabel:"each",hrsPerUnit:1,rateKey:"gen",matPerUnit:400,notes:"10-yd dumpster avg cost; 1 hr coord labor"},
+  // ══ UTILITIES & HOOKUP ═══════════════════════════════════════════════════
+  {name:"Water service connection",cat:"Utilities & Hookup",icon:"🚰",unit:"ea",unitLabel:"per home",hrsPerUnit:3,rateKey:"plumb",matPerUnit:85,notes:"Tie home supply to meter/well; shutoff & test"},
+  {name:"Sewer / septic line connection",cat:"Utilities & Hookup",icon:"🚽",unit:"ea",unitLabel:"per home",hrsPerUnit:3.5,rateKey:"plumb",matPerUnit:120,notes:"3\" ABS drain tie to sewer/septic; slope & test"},
+  {name:"Crossover water line (double-wide)",cat:"Utilities & Hookup",icon:"🔗",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"plumb",matPerUnit:35,notes:"Connect water across marriage line, insulate"},
+  {name:"Crossover sewer line (double-wide)",cat:"Utilities & Hookup",icon:"🔗",unit:"ea",unitLabel:"each",hrsPerUnit:2,rateKey:"plumb",matPerUnit:45,notes:"Connect drains across marriage line, support"},
+  {name:"Crossover HVAC duct connection",cat:"Utilities & Hookup",icon:"🔗",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"hvac",matPerUnit:48,notes:"Insulated crossover duct between sections"},
+  {name:"Heat tape — water line",cat:"Utilities & Hookup",icon:"🔥",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.08,rateKey:"plumb",matPerUnit:3.2,notes:"Self-reg heat cable + insulation on exposed line"},
+  {name:"Electric service pedestal / pole",cat:"Utilities & Hookup",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:5,rateKey:"elec",matPerUnit:420,notes:"200A meter base + disconnect on pole/pedestal"},
+  {name:"Electric service connection & feeder",cat:"Utilities & Hookup",icon:"⚡",unit:"ea",unitLabel:"per home",hrsPerUnit:4,rateKey:"elec",matPerUnit:180,notes:"Feeder from pedestal to home panel; bond & test"},
+  {name:"Gas line connection (LP / natural)",cat:"Utilities & Hookup",icon:"🔥",unit:"ea",unitLabel:"per home",hrsPerUnit:2.5,rateKey:"plumb",matPerUnit:95,notes:"Connect & leak-test gas service to home"},
 
-  // ── LANDSCAPING & FLATWORK ──────────────────────────────
-  {name:"Concrete driveway — 4\" slab",cat:"Flatwork",icon:"⬜",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.1,rateKey:"sk",matPerUnit:7,notes:"Incl. gravel base, fiber mesh, finish"},
-  {name:"Concrete patio — 4\" broom finish",cat:"Flatwork",icon:"⬜",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.08,rateKey:"sk",matPerUnit:6,notes:"Broom finish; forms, pour, cure"},
-  {name:"Concrete sidewalk — 4\"",cat:"Flatwork",icon:"⬜",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.09,rateKey:"sk",matPerUnit:5.50,notes:"4\" with tooled joints"},
-  {name:"Concrete curb & gutter",cat:"Flatwork",icon:"⬜",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.5,rateKey:"sk",matPerUnit:15,notes:"Standard curb/gutter; form, pour, strip"},
-  {name:"Asphalt patching",cat:"Flatwork",icon:"⬜",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.05,rateKey:"gen",matPerUnit:2.8,notes:"Cold patch or hot mix; tamp compact"},
-  {name:"Gravel / crush & run — spread",cat:"Flatwork",icon:"⬜",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.005,rateKey:"gen",matPerUnit:0.8,notes:"4\" depth; grade & compact"},
-  {name:"Retaining wall — timber",cat:"Flatwork",icon:"🌲",unit:"sqft",unitLabel:"sq ft face",hrsPerUnit:0.5,rateKey:"sk",matPerUnit:13.5,notes:"6×8 landscape timber; dead-men incl."},
-  {name:"Sod installation",cat:"Flatwork",icon:"🌿",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.01,rateKey:"gen",matPerUnit:.55,notes:"Roll sod; incl. light grading"},
-  {name:"Topsoil spread & grade",cat:"Flatwork",icon:"🌿",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.005,rateKey:"gen",matPerUnit:.35,notes:"4\" depth; rake & grade by hand"},
+  // ══ ROOFING ══════════════════════════════════════════════════════════════
+  {name:"Elastomeric roof coating (roof-over)",cat:"Roofing",icon:"🏚️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.012,rateKey:"roof",matPerUnit:0.85,notes:"Clean, prime, 2-coat elastomeric over metal roof"},
+  {name:"Aluminum fibered roof coating",cat:"Roofing",icon:"🏚️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.01,rateKey:"roof",matPerUnit:0.55,notes:"Reflective fibered aluminum coat on metal roof"},
+  {name:"Metal roof-over system",cat:"Roofing",icon:"🏚️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.045,rateKey:"roof",matPerUnit:3.8,notes:"Furring, insulation, screw-down metal over old roof"},
+  {name:"TPO / EPDM rubber roof-over",cat:"Roofing",icon:"🏚️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.04,rateKey:"roof",matPerUnit:2.6,notes:"Membrane roof-over, mechanically fastened/adhered"},
+  {name:"Shingle roof — replacement",cat:"Roofing",icon:"🏚️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.028,rateKey:"roof",matPerUnit:1.6,notes:"Architectural shingles incl. underlayment"},
+  {name:"Roof tear-off",cat:"Roofing",icon:"🏚️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.012,rateKey:"roof",matPerUnit:0,notes:"Strip existing roof; dispose"},
+  {name:"Roof seam / seal repair",cat:"Roofing",icon:"🏚️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.1,rateKey:"roof",matPerUnit:2.5,notes:"Butyl tape + sealant on metal seams/penetrations"},
+  {name:"Ridge cap / closure strip",cat:"Roofing",icon:"🏚️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.08,rateKey:"roof",matPerUnit:2.2,notes:"Ridge cap with closure foam & fasteners"},
+  {name:"Roof vent / turbine",cat:"Roofing",icon:"🏚️",unit:"ea",unitLabel:"each",hrsPerUnit:0.75,rateKey:"roof",matPerUnit:32,notes:"Box vent, turbine, or power vent; flash & seal"},
+  {name:"Drip edge installation",cat:"Roofing",icon:"🏚️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.08,rateKey:"roof",matPerUnit:0.45,notes:"Aluminum drip edge"},
+  {name:"Gutters — 5\" K-style",cat:"Roofing",icon:"🏚️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.15,rateKey:"side",matPerUnit:4.5,notes:"Incl. hangers, end caps, downspouts"},
+  {name:"Roof insulation board",cat:"Roofing",icon:"🧊",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.01,rateKey:"roof",matPerUnit:0.95,notes:"Rigid foam board under metal roof-over"},
 
-  // ─── TREX RAILING ─────────────────────────────────────────────────────
-  {name:"Trex Select railing — installed",   cat:"Trex Railing",icon:"🛡️",unit:"lf",  unitLabel:"lin ft",hrsPerUnit:.50,rateKey:"sk",matPerUnit:22, notes:"$35-55/lf installed. Composite top/bottom rail + balusters + hardware. HomeAdvisor 2025"},
-  {name:"Trex Transcend railing — installed", cat:"Trex Railing",icon:"🛡️",unit:"lf",  unitLabel:"lin ft",hrsPerUnit:.55,rateKey:"sk",matPerUnit:30, notes:"$50-80/lf installed. Crown-top composite + alum balusters. 25-yr warranty. D&G Flooring 2026"},
-  {name:"Trex Signature aluminum railing",   cat:"Trex Railing",icon:"🛡️",unit:"lf",  unitLabel:"lin ft",hrsPerUnit:.65,rateKey:"sk",matPerUnit:48, notes:"$60-100/lf installed. Powder-coated alum. 4 colors. D&G Flooring 2026"},
-  {name:'Trex post sleeve 4x4 (39in)',cat:'Trex Railing',icon:'🪣',unit:'ea',unitLabel:'each',hrsPerUnit:.15,rateKey:'sk',matPerUnit:52,notes:'Composite sleeve over PT 4x4. $46-58 ea. 7 colors (FlooringClarity 2026)'},
-  {name:'Trex post sleeve 6x6 (39in)',cat:'Trex Railing',icon:'🪣',unit:'ea',unitLabel:'each',hrsPerUnit:.20,rateKey:'sk',matPerUnit:68,notes:'White only. Composite sleeve over PT 6x6. FlooringClarity 2026'},
-  {name:"Trex post cap — flat 4×4",           cat:"Trex Railing",icon:"🔲",unit:"ea",  unitLabel:"each",  hrsPerUnit:.08,rateKey:"sk",matPerUnit:18, notes:"$8-30 ea. 7 color options. FlooringClarity 2026"},
-  {name:"Trex post cap — pyramid 4×4",        cat:"Trex Railing",icon:"🔺",unit:"ea",  unitLabel:"each",  hrsPerUnit:.08,rateKey:"sk",matPerUnit:22, notes:"Pyramid profile. 7 color options"},
-  {name:"Trex post cap — LED lighted 4×4",   cat:"Trex Railing",icon:"💡",unit:"ea",  unitLabel:"each",  hrsPerUnit:.20,rateKey:"sk",matPerUnit:48, notes:"Lighted post cap. Low-voltage. Run wire before sleeve"},
-  {name:"Trex post skirt 4×4",               cat:"Trex Railing",icon:"🔳",unit:"ea",  unitLabel:"each",  hrsPerUnit:.05,rateKey:"sk",matPerUnit:1.25,notes:"~$15/box of 12. Covers gap at deck surface"},
-  {name:"Trex stair railing — Transcend",    cat:"Trex Railing",icon:"🪜",unit:"run", unitLabel:"run",   hrsPerUnit:2.75,rateKey:"sk",matPerUnit:165,notes:"Per stair run. Angle-cut hardware included"},
-  {name:"Trex stair railing — Signature alum",cat:"Trex Railing",icon:"🪜",unit:"run",unitLabel:"run",   hrsPerUnit:3.00,rateKey:"sk",matPerUnit:195,notes:"Aluminum stair section. Adjustable stainless hardware"},
-  {name:"Trex adjustable foot block",        cat:"Trex Railing",icon:"🔩",unit:"ea",  unitLabel:"each",  hrsPerUnit:.03,rateKey:"sk",matPerUnit:8.50,notes:"Required — 1 per 8ft section minimum"},
-  {name:"Trex Hideaway hidden fasteners",    cat:"Trex Railing",icon:"🔩",unit:"sqft",unitLabel:"sq ft", hrsPerUnit:.01,rateKey:"sk",matPerUnit:.45, notes:"Clip system. Required for Trex composite decking"},
-  // ─── DECK ACCESSORIES ─────────────────────────────────────────────────
-  {name:"Trex Protect joist tape",           cat:"Deck Accessories",icon:"🩹",unit:"lf",  unitLabel:"lin ft",hrsPerUnit:.02,rateKey:"sk",matPerUnit:.85,notes:"Butyl tape protects PT joists from moisture. ~$1/lf installed"},
-  {name:"Trex fascia / rim board",           cat:"Deck Accessories",icon:"📋",unit:"lf",  unitLabel:"lin ft",hrsPerUnit:.10,rateKey:"sk",matPerUnit:5.50,notes:"Composite fascia board matching Trex decking color"},
-  {name:"Picture frame border decking",      cat:"Deck Accessories",icon:"🖼️",unit:"lf",  unitLabel:"lin ft",hrsPerUnit:.12,rateKey:"sk",matPerUnit:6.50,notes:"Perimeter border boards. Specialty cuts required"},
-  {name:"Composite deck trim (rim cover)",   cat:"Deck Accessories",icon:"📐",unit:"lf",  unitLabel:"lin ft",hrsPerUnit:.08,rateKey:"sk",matPerUnit:4.50,notes:"Covers exposed PT rim board edges"},
-  {name:"Deck gate — Trex composite",        cat:"Deck Accessories",icon:"🚪",unit:"ea",  unitLabel:"each",  hrsPerUnit:2.50,rateKey:"sk",matPerUnit:185,notes:"Composite gate panel + self-closing hardware. Matches railing"},
-  {name:"Cable rail end caps",               cat:"Deck Accessories",icon:"🔘",unit:"ea",  unitLabel:"each",  hrsPerUnit:.10,rateKey:"sk",matPerUnit:8.50,notes:"Plug ends for cable railing terminations"},
-  {name:"Deck post light — low voltage",     cat:"Deck Accessories",icon:"💡",unit:"ea",  unitLabel:"each",  hrsPerUnit:.50,rateKey:"sk",matPerUnit:38.00,notes:"Post cap light. Wiring and transformer separate"},
-  {name:"Stair riser lights — LED",         cat:"Deck Accessories",icon:"💡",unit:"ea",  unitLabel:"each",  hrsPerUnit:.35,rateKey:"sk",matPerUnit:28.00,notes:"LED strip under each stair tread nose"},
-  {name:"Deck board inset lights",          cat:"Deck Accessories",icon:"💡",unit:"ea",  unitLabel:"each",  hrsPerUnit:.45,rateKey:"sk",matPerUnit:35.00,notes:"Recessed deck board lights. Trex compatible. Low voltage"},
-  {name:"Low-voltage transformer (lighting)",cat:"Deck Accessories",icon:"⚡",unit:"ea",  unitLabel:"each",  hrsPerUnit:.75,rateKey:"elec",matPerUnit:120, notes:"Powers all deck lighting. Size per total fixture wattage"},
-  {name:"Privacy screen panel",             cat:"Deck Accessories",icon:"🔲",unit:"panel",unitLabel:"panels",hrsPerUnit:1.50,rateKey:"sk",matPerUnit:145,notes:"Composite or cedar privacy panel between rail posts"},
-  {name:"Built-in bench — composite",       cat:"Deck Accessories",icon:"🪑",unit:"lf",  unitLabel:"lin ft",hrsPerUnit:.80,rateKey:"sk",matPerUnit:65.00,notes:"Built-in bench with backrest. Composite boards + PT frame"},
-  {name:"Built-in planter box",             cat:"Deck Accessories",icon:"🌱",unit:"ea",  unitLabel:"each",  hrsPerUnit:2.00,rateKey:"sk",matPerUnit:120, notes:"Composite planter. Blocking and waterproofing required"},
-  {name:"Under-deck drainage system",       cat:"Deck Accessories",icon:"💧",unit:"sqft",unitLabel:"sq ft", hrsPerUnit:.15,rateKey:"sk",matPerUnit:12.00,notes:"Trex RainEscape or equiv. Converts under-deck to dry space"},
-  {name:"Deck drain channel (perimeter)",   cat:"Deck Accessories",icon:"💧",unit:"lf",  unitLabel:"lin ft",hrsPerUnit:.25,rateKey:"sk",matPerUnit:18.00,notes:"Perimeter drain channel diverts water off deck edge"},
-  {name:"French drain / trench drain",cat:"Flatwork",icon:"💧",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.6,rateKey:"gen",matPerUnit:8,notes:"Dig, pipe, gravel, fabric, backfill"},
-  // ── TREX RAILING SYSTEM COMPONENTS ────────────────────────────────────
-  // Pricing: HomeAdvisor Nov 2025, D&G Flooring Apr 2026, FlooringClarity 2026
-  // Labor: Contractor Talk field data; ETN -8% vs national
-  {name:"Trex Select Rail Kit — install",cat:"Trex Railing",icon:"🔩",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.5,rateKey:"sk",matPerUnit:23,notes:"$35-55/lf installed. Composite rail + square balusters. D&G Flooring 2026"},
-  {name:"Trex Transcend Rail Kit — install",cat:"Trex Railing",icon:"🔩",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.55,rateKey:"sk",matPerUnit:31,notes:"$50-80/lf installed. Crown-top profile + alum balusters. 25-yr warranty"},
-  {name:"Trex Signature Aluminum Railing — install",cat:"Trex Railing",icon:"🔩",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.65,rateKey:"sk",matPerUnit:49,notes:"$60-100/lf installed. Powder-coated alum. 4 colors. D&G Flooring Apr 2026"},
-  {name:"Trex 4×4 Post Sleeve — install",cat:"Trex Railing",icon:"🪵",unit:"ea",unitLabel:"each",hrsPerUnit:0.15,rateKey:"sk",matPerUnit:53,notes:"FlooringClarity 2026: $46-58 ea. 7 color options. Fits over PT 4×4"},
-  {name:"Trex 6×6 Post Sleeve — install",cat:"Trex Railing",icon:"🪵",unit:"ea",unitLabel:"each",hrsPerUnit:0.18,rateKey:"sk",matPerUnit:69,notes:"White only. Larger diameter post. FlooringClarity 2026"},
-  {name:"Trex Post Cap — flat profile",cat:"Trex Railing",icon:"🔲",unit:"ea",unitLabel:"each",hrsPerUnit:0.1,rateKey:"sk",matPerUnit:19,notes:"FlooringClarity 2026: $8-30 ea. 7 color options (4×4)"},
-  {name:"Trex Post Cap — pyramid profile",cat:"Trex Railing",icon:"🔺",unit:"ea",unitLabel:"each",hrsPerUnit:0.1,rateKey:"sk",matPerUnit:23,notes:"Pyramid-profile decorative cap. 7 colors for 4×4"},
-  {name:"Trex Post Cap — LED lighted",cat:"Trex Railing",icon:"💡",unit:"ea",unitLabel:"each",hrsPerUnit:0.25,rateKey:"sk",matPerUnit:49,notes:"Solar or low-voltage LED cap. Adds evening ambiance"},
-  {name:"Trex Post Skirt (box/12)",cat:"Trex Railing",icon:"🔲",unit:"box",unitLabel:"box (12 pcs)",hrsPerUnit:.20,rateKey:"sk",matPerUnit:15,notes:"FlooringClarity 2026: ~$15/box of 12. Covers gap at deck surface"},
-  {name:"Trex Stair Rail Kit — Select",cat:"Trex Railing",icon:"🪜",unit:"run",unitLabel:"stair runs",hrsPerUnit:2.5,rateKey:"sk",matPerUnit:148,notes:"Per stair run. Angle-cut composite. $145/run material"},
-  {name:"Trex Stair Rail Kit — Transcend",cat:"Trex Railing",icon:"🪜",unit:"run",unitLabel:"stair runs",hrsPerUnit:2.75,rateKey:"sk",matPerUnit:168,notes:"Transcend stair section. Hardware incl. HomeAdvisor 2025"},
-  {name:"Trex Stair Rail Kit — Signature Alum",cat:"Trex Railing",icon:"🪜",unit:"run",unitLabel:"stair runs",hrsPerUnit:3.00,rateKey:"sk",matPerUnit:195,notes:"Aluminum stair section. Adjustable stainless hardware incl."},
-  {name:"Trex Crown Top Rail 8ft",cat:"Trex Railing",icon:"➖",unit:"ea",unitLabel:"8ft sections",hrsPerUnit:.30,rateKey:"sk",matPerUnit:42,notes:"Top/bottom rail only — pairs with post sleeves on PT posts"},
-  {name:"Trex Aluminum Baluster (round, ea)",cat:"Trex Railing",icon:"🔹",unit:"ea",unitLabel:"each",hrsPerUnit:.05,rateKey:"sk",matPerUnit:4.50,notes:"Round aluminum baluster. Clips into composite rail"},
-  {name:"Trex Composite Baluster (square, ea)",cat:"Trex Railing",icon:"🔹",unit:"ea",unitLabel:"each",hrsPerUnit:.05,rateKey:"sk",matPerUnit:3.80,notes:"Square composite baluster. UV and weather resistant"},
-  {name:"Trex Adjustable Foot Block",cat:"Trex Railing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:.08,rateKey:"sk",matPerUnit:8.50,notes:"Required — 1 per rail section min. Adjusts bottom rail height"},
-  {name:"Trex Hideaway Hidden Fastener (100pk)",cat:"Trex Railing",icon:"🔧",unit:"pk",unitLabel:"100-pk",hrsPerUnit:.10,rateKey:"sk",matPerUnit:14.50,notes:"For composite decking hidden screw-free installation"},
-  {name:"Sleeve Adhesive — PL Premium",cat:"Trex Railing",icon:"🔧",unit:"tube",unitLabel:"tubes",hrsPerUnit:.08,rateKey:"sk",matPerUnit:8.50,notes:"Construction adhesive for securing post sleeves to PT posts"},
-  {name:"Trex Cocktail Rail Kit 8ft",cat:"Trex Railing",icon:"🥂",unit:"ea",unitLabel:"8ft kits",hrsPerUnit:.45,rateKey:"sk",matPerUnit:68,notes:"Wide flat-top rail — serves as ledge. Round alum balusters only"},
-  {name:"Trex Gate Kit",cat:"Trex Railing",icon:"🚪",unit:"ea",unitLabel:"each",hrsPerUnit:1.50,rateKey:"sk",matPerUnit:185,notes:"Self-closing composite gate. Matches Transcend rail system"},
-  {name:"Trex LED Deck Light — post mount",cat:"Trex Railing",icon:"💡",unit:"ea",unitLabel:"each",hrsPerUnit:.50,rateKey:"elec",matPerUnit:55,notes:"Low-voltage deck light for post top"},
-  {name:"Trex LED Riser Light",cat:"Trex Railing",icon:"💡",unit:"ea",unitLabel:"each",hrsPerUnit:.40,rateKey:"elec",matPerUnit:38,notes:"Stair riser recessed light. Low-voltage"},
-  {name:"Trex 12V Transformer",cat:"Trex Railing",icon:"🔌",unit:"ea",unitLabel:"each",hrsPerUnit:.75,rateKey:"elec",matPerUnit:85,notes:"Powers up to 150W of Trex lighting. Weatherproof"},
+  // ══ EXTERIOR & SIDING ════════════════════════════════════════════════════
+  {name:"Vinyl siding — install",cat:"Exterior & Siding",icon:"🏠",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.042,rateKey:"side",matPerUnit:2.9,notes:"Starter, J-channel, panels incl."},
+  {name:"Vinyl siding — patch / repair",cat:"Exterior & Siding",icon:"🏠",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.06,rateKey:"side",matPerUnit:3.2,notes:"Match & replace damaged panels"},
+  {name:"Metal siding panel — replace",cat:"Exterior & Siding",icon:"🏠",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.05,rateKey:"side",matPerUnit:3.5,notes:"Replace dented/corroded metal siding panels"},
+  {name:"House wrap / moisture barrier",cat:"Exterior & Siding",icon:"🏠",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.006,rateKey:"side",matPerUnit:0.28,notes:"Tyvek or equiv; tape seams"},
+  {name:"Vinyl soffit — install",cat:"Exterior & Siding",icon:"🏠",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.25,rateKey:"side",matPerUnit:4,notes:"Vented soffit incl. F-channel"},
+  {name:"Fascia — wrap / replace",cat:"Exterior & Siding",icon:"🏠",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.35,rateKey:"side",matPerUnit:3.5,notes:"PVC/aluminum fascia or coil wrap"},
+  {name:"Exterior trim / J-channel",cat:"Exterior & Siding",icon:"🏠",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.15,rateKey:"side",matPerUnit:1.8,notes:"Corner posts, J-channel, trim"},
+  {name:"Exterior door wrap / trim",cat:"Exterior & Siding",icon:"🏠",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"side",matPerUnit:18,notes:"Coil or PVC wrap around opening"},
+  {name:"Exterior caulk & weatherseal",cat:"Exterior & Siding",icon:"🧴",unit:"ea",unitLabel:"per opening",hrsPerUnit:0.5,rateKey:"gen",matPerUnit:2.5,notes:"Seal windows/doors/penetrations"},
 
-  // ── DECK ACCESSORIES & FINISHING ─────────────────────────────────────
-  {name:"Joist tape — waterproof membrane",cat:"Deck Accessories",icon:"🩹",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.02,rateKey:"sk",matPerUnit:1.00,notes:"Butyl joist tape (Trex Protect or equiv). Extends joist life 2-3x"},
-  {name:"Post base — Simpson ABA44",cat:"Deck Accessories",icon:"🔩",unit:"ea",unitLabel:"each",hrsPerUnit:.20,rateKey:"sk",matPerUnit:7.20,notes:"4×4 post base anchor. Set in concrete"},
-  {name:"Post base — Simpson ABA66",cat:"Deck Accessories",icon:"🔩",unit:"ea",unitLabel:"each",hrsPerUnit:.20,rateKey:"sk",matPerUnit:9.80,notes:"6×6 post base anchor"},
-  {name:"Post base — Simpson CBSQ (adjustable)",cat:"Deck Accessories",icon:"🔩",unit:"ea",unitLabel:"each",hrsPerUnit:.30,rateKey:"sk",matPerUnit:14.50,notes:"Adjustable standoff post base. 1.5\" clearance off concrete"},
-  {name:"Fascia board — composite 1×8",cat:"Deck Accessories",icon:"🪵",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.06,rateKey:"sk",matPerUnit:4.80,notes:"Composite fascia board. Matches decking color"},
-  {name:"Fascia board — PVC 1×8",cat:"Deck Accessories",icon:"🪵",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.06,rateKey:"sk",matPerUnit:3.20,notes:"Cellular PVC fascia. Paint-grade"},
-  {name:"Deck lighting — recessed tread light",cat:"Deck Accessories",icon:"💡",unit:"ea",unitLabel:"each",hrsPerUnit:.50,rateKey:"elec",matPerUnit:42,notes:"LED recessed stair tread light. Low-voltage"},
-  {name:"Deck lighting — post cap (std)",cat:"Deck Accessories",icon:"💡",unit:"ea",unitLabel:"each",hrsPerUnit:.35,rateKey:"elec",matPerUnit:28,notes:"Low-voltage post cap light. Solar or 12V wire"},
-  {name:"Deck lighting — transformer 60W",cat:"Deck Accessories",icon:"🔌",unit:"ea",unitLabel:"each",hrsPerUnit:.75,rateKey:"elec",matPerUnit:65,notes:"12V transformer. Timer + photocell incl."},
-  {name:"Deck lighting — wire 12V (50ft roll)",cat:"Deck Accessories",icon:"🔌",unit:"roll",unitLabel:"rolls (50ft)",hrsPerUnit:.15,rateKey:"elec",matPerUnit:18,notes:"Low-voltage outdoor wire"},
-  {name:"Hidden fastener clips — composite deck",cat:"Deck Accessories",icon:"🔧",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.005,rateKey:"sk",matPerUnit:.22,notes:"~1 clip per 2 sqft. Creates screw-free surface"},
-  {name:"Deck drain system — channel",cat:"Deck Accessories",icon:"💧",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.20,rateKey:"sk",matPerUnit:8.50,notes:"Under-deck drainage channel. Keeps below-deck dry"},
-  {name:"Deck drain — outlet gutter",cat:"Deck Accessories",icon:"💧",unit:"ea",unitLabel:"each",hrsPerUnit:.50,rateKey:"sk",matPerUnit:45,notes:"Outlet gutter for under-deck drain system"},
-  {name:"Privacy screen panel — composite",cat:"Deck Accessories",icon:"🪟",unit:"panel",unitLabel:"panels",hrsPerUnit:1.20,rateKey:"sk",matPerUnit:120,notes:"Composite privacy panel. Typical 4×4 or 4×6ft"},
-  {name:"Privacy screen — metal/steel",cat:"Deck Accessories",icon:"🪟",unit:"panel",unitLabel:"panels",hrsPerUnit:1.00,rateKey:"sk",matPerUnit:95,notes:"Laser-cut powder-coated steel privacy panel"},
-  {name:"Built-in bench seat — composite",cat:"Deck Accessories",icon:"🪑",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.40,rateKey:"sk",matPerUnit:22,notes:"Composite bench seat surface. 16\" depth"},
-  {name:"Built-in bench — framing (2×4 PT)",cat:"Deck Accessories",icon:"🪑",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.30,rateKey:"sk",matPerUnit:8,notes:"Pressure-treated bench framing"},
-  {name:"Pergola — attached 10×12",cat:"Deck Accessories",icon:"⛺",unit:"ea",unitLabel:"each",hrsPerUnit:12,rateKey:"sk",matPerUnit:850,notes:"Cedar or composite pergola kit. Attached to house"},
-  {name:"Pergola — freestanding 12×12",cat:"Deck Accessories",icon:"⛺",unit:"ea",unitLabel:"each",hrsPerUnit:16,rateKey:"sk",matPerUnit:1200,notes:"Freestanding pergola. Cedar 6×6 posts"},
-  {name:"Shade sail install",cat:"Deck Accessories",icon:"⛱️",unit:"ea",unitLabel:"each",hrsPerUnit:3,rateKey:"sk",matPerUnit:180,notes:"Triangle or square shade sail. Hardware + anchors incl."},
-  {name:"Outdoor ceiling fan — rough-in box",cat:"Deck Accessories",icon:"💨",unit:"ea",unitLabel:"each",hrsPerUnit:.75,rateKey:"elec",matPerUnit:18,notes:"Braced fan-rated box. Fan sold separately"},
-  {name:"Outdoor ceiling fan — supply & install",cat:"Deck Accessories",icon:"💨",unit:"ea",unitLabel:"each",hrsPerUnit:1.50,rateKey:"elec",matPerUnit:220,notes:"Mid-grade outdoor rated ceiling fan"},
-  {name:"Outdoor receptacle (GFCI)",cat:"Deck Accessories",icon:"🔌",unit:"ea",unitLabel:"each",hrsPerUnit:1.50,rateKey:"elec",matPerUnit:28,notes:"GFCI protected outdoor outlet. Weatherproof cover"},
-  {name:"Cable conduit / wire chase",cat:"Deck Accessories",icon:"🔌",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.08,rateKey:"elec",matPerUnit:2.20,notes:"Surface-mount wire conduit for lighting runs"},
-  {name:"Deck stain — semi-transparent",cat:"Deck Accessories",icon:"🪣",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.015,rateKey:"paint",matPerUnit:.35,notes:"Semi-transparent wood stain. 300 sqft/gal"},
-  {name:"Deck seal — clear waterproof",cat:"Deck Accessories",icon:"🪣",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.012,rateKey:"paint",matPerUnit:.28,notes:"Clear waterproofing sealer. Reapply every 2-3 yrs"},
-  {name:"Composite deck cleaner application",cat:"Deck Accessories",icon:"🧹",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.008,rateKey:"sk",matPerUnit:.12,notes:"Professional composite deck cleaning. Annual maintenance"},
-  {name:"Pressure washing",cat:"Deck Accessories",icon:"🧹",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.005,rateKey:"gen",matPerUnit:0,notes:"Pressure wash deck or structure"},
-  {name:"Post cap — wood decorative",cat:"Deck Accessories",icon:"🔲",unit:"ea",unitLabel:"each",hrsPerUnit:.10,rateKey:"sk",matPerUnit:12,notes:"Decorative wood post cap. Various profiles"},
-  {name:"Post wrap — PVC sleeve custom",cat:"Deck Accessories",icon:"🪵",unit:"ea",unitLabel:"each",hrsPerUnit:.30,rateKey:"sk",matPerUnit:28,notes:"PVC post wrap for 4×4 or 6×6. Paint-grade"},
-  {name:"Newel post — decorative 6×6",cat:"Deck Accessories",icon:"🪵",unit:"ea",unitLabel:"each",hrsPerUnit:.75,rateKey:"sk",matPerUnit:65,notes:"Decorative turned or craftsman newel post"},
-  {name:"Post anchor — helical (installed)",cat:"Deck Accessories",icon:"🔩",unit:"ea",unitLabel:"each",hrsPerUnit:1.0,rateKey:"sk",matPerUnit:85,notes:"Helical screw anchor for soft soil. No dig permit in some areas"},
-  {name:"Joist hanger — LUS210",cat:"Deck Accessories",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:.08,rateKey:"sk",matPerUnit:1.85,notes:"Simpson LUS210 double-shear joist hanger"},
-  {name:"Hurricane tie — H2.5A",cat:"Deck Accessories",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:.05,rateKey:"sk",matPerUnit:.85,notes:"Rafter/truss tie. Required in high-wind zones"},
-  {name:"Beam connector — BC post cap",cat:"Deck Accessories",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:.15,rateKey:"sk",matPerUnit:12,notes:"Post cap beam connector. 4×4 or 6×6"},
-  {name:"Structural screw — 3\" (50pk)",cat:"Deck Accessories",icon:"🔧",unit:"pk",unitLabel:"50-pk",hrsPerUnit:.05,rateKey:"sk",matPerUnit:14.50,notes:"GRK or Spax structural screws"},
-  {name:"Lag bolt 1/2×6\" (ea)",cat:"Deck Accessories",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:.10,rateKey:"sk",matPerUnit:.75,notes:"Hot-dip galvanized. Ledger attachment"},
-  {name:"Through-bolt 1/2×8\" + nut/washer",cat:"Deck Accessories",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:.15,rateKey:"sk",matPerUnit:1.20,notes:"Post attachment through-bolt"},
-  {name:"Concrete anchor — Simpson SET-XP",cat:"Deck Accessories",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:.20,rateKey:"sk",matPerUnit:4.50,notes:"Epoxy adhesive anchor for retrofit footings"},
-  {name:"Kickboard / rim joist — 2×10",cat:"Deck Accessories",icon:"🪵",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.06,rateKey:"sk",matPerUnit:2.80,notes:"Rim joist / band board. PT or composite"},
-  {name:"Deck board — Trex Enhance 12ft",cat:"Deck Accessories",icon:"🪵",unit:"ea",unitLabel:"each",hrsPerUnit:.04,rateKey:"sk",matPerUnit:29,notes:"$29.04 per board. AdvantageLumber Jan 2025"},
-  {name:"Deck board — Trex Transcend 12ft",cat:"Deck Accessories",icon:"🪵",unit:"ea",unitLabel:"each",hrsPerUnit:.04,rateKey:"sk",matPerUnit:53,notes:"$53.28 per board. AdvantageLumber Jan 2025"},
-  {name:"Deck board — Trex Transcend 16ft",cat:"Deck Accessories",icon:"🪵",unit:"ea",unitLabel:"each",hrsPerUnit:.05,rateKey:"sk",matPerUnit:71,notes:"AdvantageLumber Jan 2025"},
+  // ══ DOORS & WINDOWS ══════════════════════════════════════════════════════
+  {name:"MH exterior door (out-swing) — replace",cat:"Doors & Windows",icon:"🚪",unit:"ea",unitLabel:"each",hrsPerUnit:3,rateKey:"sk",matPerUnit:285,notes:"32/36\" out-swing steel door, MH-specific jamb"},
+  {name:"Storm / screen door",cat:"Doors & Windows",icon:"🚪",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"sk",matPerUnit:135,notes:"Aluminum storm door with closer"},
+  {name:"Interior prehung door (MH)",cat:"Doors & Windows",icon:"🚪",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"sk",matPerUnit:95,notes:"MH-size prehung interior door; hardware extra"},
+  {name:"MH window — single (replace)",cat:"Doors & Windows",icon:"🪟",unit:"ea",unitLabel:"each",hrsPerUnit:2,rateKey:"sk",matPerUnit:165,notes:"MH-size vinyl window, flush/lap mount"},
+  {name:"MH window — large / picture",cat:"Doors & Windows",icon:"🪟",unit:"ea",unitLabel:"each",hrsPerUnit:3,rateKey:"sk",matPerUnit:320,notes:"Large/picture window replacement"},
+  {name:"Sliding glass / patio door",cat:"Doors & Windows",icon:"🪟",unit:"ea",unitLabel:"each",hrsPerUnit:4,rateKey:"sk",matPerUnit:625,notes:"6ft sliding patio door; flash & seal"},
+  {name:"Window screen — replace",cat:"Doors & Windows",icon:"🪟",unit:"ea",unitLabel:"each",hrsPerUnit:0.4,rateKey:"gen",matPerUnit:18,notes:"Re-screen or new screen frame"},
+  {name:"Door hardware / deadbolt",cat:"Doors & Windows",icon:"🔒",unit:"ea",unitLabel:"each",hrsPerUnit:0.5,rateKey:"sk",matPerUnit:42,notes:"Knob/lever + deadbolt set"},
+  {name:"Skylight — install / replace",cat:"Doors & Windows",icon:"🪟",unit:"ea",unitLabel:"each",hrsPerUnit:2.5,rateKey:"sk",matPerUnit:180,notes:"Curb-mount skylight; flash & seal"},
 
+  // ══ PLUMBING ═════════════════════════════════════════════════════════════
+  {name:"Mobile home water heater — set & connect",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:3,rateKey:"plumb",matPerUnit:520,notes:"MH-rated tank heater, T&P, supply/return; sealed combustion"},
+  {name:"Tankless water heater — install",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:5,rateKey:"plumb",matPerUnit:780,notes:"Gas/electric tankless; vent & gas/elec connection"},
+  {name:"Whole-home re-pipe (PEX)",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"per home",hrsPerUnit:18,rateKey:"plumb",matPerUnit:480,notes:"Replace failing supply lines with PEX manifold"},
+  {name:"PEX branch line to fixture",cat:"Plumbing",icon:"🔧",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.07,rateKey:"plumb",matPerUnit:0.65,notes:"½\" PEX hot & cold"},
+  {name:"P-trap / drain repair",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:1,rateKey:"plumb",matPerUnit:18,notes:"Replace P-trap / clear & reseal drain"},
+  {name:"Faucet — replace",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"plumb",matPerUnit:0,notes:"Set & connect; faucet cost separate"},
+  {name:"Toilet — set & connect",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"plumb",matPerUnit:0,notes:"Set, wax ring, supply; toilet cost separate"},
+  {name:"One-piece tub/shower (MH)",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:5,rateKey:"plumb",matPerUnit:420,notes:"MH-size fiberglass tub/shower unit; rough & set"},
+  {name:"Garden tub (MH)",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:5,rateKey:"plumb",matPerUnit:560,notes:"MH garden tub set & plumb"},
+  {name:"Shutoff / supply valve",cat:"Plumbing",icon:"🔧",unit:"ea",unitLabel:"each",hrsPerUnit:0.5,rateKey:"plumb",matPerUnit:9,notes:"Angle stop / shutoff valve replace"},
+  {name:"Sewer / drain line — ABS",cat:"Plumbing",icon:"🔧",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.15,rateKey:"plumb",matPerUnit:2,notes:"3\"/4\" ABS DWV incl. fittings"},
+
+  // ══ ELECTRICAL ═══════════════════════════════════════════════════════════
+  {name:"Mobile home panel — replace",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:8,rateKey:"elec",matPerUnit:380,notes:"MH-rated 200A panel; breakers & bonding"},
+  {name:"Outlet / receptacle",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:0.6,rateKey:"elec",matPerUnit:4.5,notes:"Replace or add receptacle on existing circuit"},
+  {name:"Switch — replace / add",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:0.5,rateKey:"elec",matPerUnit:3.5,notes:"Single-pole; 3-way add 30% time"},
+  {name:"GFCI outlet",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:0.75,rateKey:"elec",matPerUnit:24,notes:"Kitchen/bath/exterior — code required"},
+  {name:"Light fixture — install",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:0.6,rateKey:"elec",matPerUnit:0,notes:"Hang & connect; fixture cost separate"},
+  {name:"Ceiling fan — install",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"elec",matPerUnit:0,notes:"Brace box, wire, hang; fan cost separate"},
+  {name:"Smoke / CO detector",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:0.5,rateKey:"elec",matPerUnit:35,notes:"Hardwired interconnected"},
+  {name:"Circuit breaker — add",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"elec",matPerUnit:25,notes:"Add single circuit to existing panel"},
+  {name:"Whole-home rewire (per room)",cat:"Electrical",icon:"⚡",unit:"room",unitLabel:"rooms",hrsPerUnit:8,rateKey:"elec",matPerUnit:60,notes:"Avg per room; includes panel work"},
+  {name:"Exterior GFCI / weatherproof outlet",cat:"Electrical",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:1,rateKey:"elec",matPerUnit:28,notes:"In-use weatherproof cover; GFCI protected"},
+
+  // ══ HVAC ═════════════════════════════════════════════════════════════════
+  {name:"Downflow furnace — set & connect",cat:"HVAC",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:6,rateKey:"hvac",matPerUnit:0,notes:"MH downflow furnace; gas/elec & duct; unit separate"},
+  {name:"Package unit (gas/elec) — install",cat:"HVAC",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:8,rateKey:"hvac",matPerUnit:0,notes:"MH package unit set, duct adapter, connect; unit separate"},
+  {name:"Mini-split — install (1 head)",cat:"HVAC",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:6,rateKey:"hvac",matPerUnit:0,notes:"Single-zone mini-split; line set & connect; unit separate"},
+  {name:"A/C condenser + line set",cat:"HVAC",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:8,rateKey:"hvac",matPerUnit:0,notes:"Set condenser, line set, evac & charge; unit separate"},
+  {name:"Belly duct — repair",cat:"HVAC",icon:"🌀",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.15,rateKey:"hvac",matPerUnit:3.5,notes:"Reseal/replace crushed belly duct; re-insulate"},
+  {name:"Register / floor boot — replace",cat:"HVAC",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:0.5,rateKey:"hvac",matPerUnit:18,notes:"Floor register & boot replacement"},
+  {name:"Thermostat — install / replace",cat:"HVAC",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:1,rateKey:"hvac",matPerUnit:0,notes:"Wire & program; stat cost separate"},
+  {name:"Flex duct — branch run",cat:"HVAC",icon:"🌀",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.022,rateKey:"hvac",matPerUnit:1.4,notes:"6–8\" flex duct to register"},
+
+  // ══ FLOORING ═════════════════════════════════════════════════════════════
+  {name:"Subfloor repair — water damage",cat:"Flooring",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.08,rateKey:"sk",matPerUnit:1.6,notes:"Cut out rot, sister joists, replace decking"},
+  {name:"Floor decking replacement (23/32 OSB)",cat:"Flooring",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.05,rateKey:"sk",matPerUnit:1.35,notes:"Tongue-groove subfloor; glue & screw"},
+  {name:"Floor joist — sister / repair",cat:"Flooring",icon:"🪵",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.2,rateKey:"sk",matPerUnit:2.2,notes:"Sister damaged floor joist; from belly or above"},
+  {name:"LVP / laminate flooring",cat:"Flooring",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.032,rateKey:"sk",matPerUnit:3.8,notes:"Floating; incl. underlayment"},
+  {name:"Carpet & pad",cat:"Flooring",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.02,rateKey:"sk",matPerUnit:2.6,notes:"Carpet, pad, tack strip; stretch & seam"},
+  {name:"Vinyl sheet flooring",cat:"Flooring",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.025,rateKey:"sk",matPerUnit:1.9,notes:"Sheet vinyl; glue-down"},
+  {name:"Tile flooring",cat:"Flooring",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.125,rateKey:"sk",matPerUnit:6.5,notes:"Mortar, tile, grout (needs proper subfloor)"},
+  {name:"Underlayment",cat:"Flooring",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.01,rateKey:"sk",matPerUnit:0.55,notes:"Luan/foam underlayment over subfloor"},
+
+  // ══ WALLS & CEILINGS ═════════════════════════════════════════════════════
+  {name:"VOG wall panel — replace",cat:"Walls & Ceilings",icon:"🧱",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.04,rateKey:"sk",matPerUnit:1.1,notes:"Vinyl-over-gypsum MH wall panel replacement"},
+  {name:"Batten strip — replace",cat:"Walls & Ceilings",icon:"📏",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.06,rateKey:"sk",matPerUnit:0.85,notes:"Cover strips over VOG panel seams"},
+  {name:"Drywall conversion — hang",cat:"Walls & Ceilings",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.016,rateKey:"sk",matPerUnit:0.55,notes:"Convert VOG to ½\" drywall; hang"},
+  {name:"Drywall — tape & finish (L4)",cat:"Walls & Ceilings",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.018,rateKey:"sk",matPerUnit:0.25,notes:"3-coat tape & finish"},
+  {name:"Ceiling panel — replace",cat:"Walls & Ceilings",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.05,rateKey:"sk",matPerUnit:1.2,notes:"MH ceiling board / panel replacement"},
+  {name:"Ceiling — water damage repair",cat:"Walls & Ceilings",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.07,rateKey:"sk",matPerUnit:1.6,notes:"Cut out, replace, blend texture"},
+  {name:"Wall insulation — batt",cat:"Walls & Ceilings",icon:"🧊",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.01,rateKey:"gen",matPerUnit:0.72,notes:"R-13/R-15 batt in wall cavity"},
+  {name:"Wood / vinyl wall paneling",cat:"Walls & Ceilings",icon:"🔲",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.03,rateKey:"sk",matPerUnit:1.4,notes:"4×8 paneling sheets; glue & nail"},
+  {name:"Trim / baseboard — install",cat:"Walls & Ceilings",icon:"🔲",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.1,rateKey:"sk",matPerUnit:1.5,notes:"Nail & caulk"},
+  {name:"Wall / ceiling texture",cat:"Walls & Ceilings",icon:"🎨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.01,rateKey:"paint",matPerUnit:0.15,notes:"Spray knockdown / orange-peel texture"},
+
+  // ══ DECKS, STEPS & RAMPS ═════════════════════════════════════════════════
+  {name:"Prefab steps — install (set)",cat:"Decks, Steps & Ramps",icon:"🪜",unit:"ea",unitLabel:"per set",hrsPerUnit:1.5,rateKey:"sk",matPerUnit:165,notes:"Steel/fiberglass prefab steps with handrail"},
+  {name:"Wood deck steps / stringers",cat:"Decks, Steps & Ramps",icon:"🪜",unit:"riser",unitLabel:"risers",hrsPerUnit:1.25,rateKey:"sk",matPerUnit:24,notes:"Per riser incl. treads"},
+  {name:"Deck framing (16\" OC)",cat:"Decks, Steps & Ramps",icon:"🪵",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.062,rateKey:"sk",matPerUnit:2.5,notes:"PT joists, beams, hangers, posts"},
+  {name:"Deck decking — pressure treated",cat:"Decks, Steps & Ramps",icon:"🪵",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.055,rateKey:"sk",matPerUnit:3.8,notes:"5/4×6 PT; incl. fasteners"},
+  {name:"Deck decking — composite",cat:"Decks, Steps & Ramps",icon:"🪵",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.065,rateKey:"sk",matPerUnit:13.5,notes:"Hidden fastener composite system"},
+  {name:"Deck railing — wood/composite",cat:"Decks, Steps & Ramps",icon:"🪵",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.75,rateKey:"sk",matPerUnit:15.5,notes:"Top/bottom rail + balusters 4\" OC"},
+  {name:"Wheelchair / ADA ramp",cat:"Decks, Steps & Ramps",icon:"♿",unit:"lf",unitLabel:"lin ft of run",hrsPerUnit:0.9,rateKey:"sk",matPerUnit:28,notes:"1:12 slope ADA ramp w/ rails & landings"},
+  {name:"Landing platform 4×4",cat:"Decks, Steps & Ramps",icon:"🪵",unit:"ea",unitLabel:"each",hrsPerUnit:3,rateKey:"sk",matPerUnit:140,notes:"PT landing pad at door; posts & footings"},
+  {name:"Handrail — graspable",cat:"Decks, Steps & Ramps",icon:"🪵",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.3,rateKey:"sk",matPerUnit:8,notes:"Code-compliant graspable handrail"},
+
+  // ══ ADDITIONS & AWNINGS ══════════════════════════════════════════════════
+  {name:"Carport — attached metal",cat:"Additions & Awnings",icon:"🚗",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.06,rateKey:"sub",matPerUnit:7.5,notes:"Metal carport posts, roof; anchored to slab/ground"},
+  {name:"Patio cover / awning",cat:"Additions & Awnings",icon:"⛱️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.07,rateKey:"sk",matPerUnit:9,notes:"Aluminum/metal awning attached to home"},
+  {name:"Tag / room addition (framed)",cat:"Additions & Awnings",icon:"🏠",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.45,rateKey:"sk",matPerUnit:42,notes:"Stick-framed addition tied to home; turnkey shell"},
+  {name:"Porch roof",cat:"Additions & Awnings",icon:"🏡",unit:"sqft",unitLabel:"sq ft roof",hrsPerUnit:0.16,rateKey:"sk",matPerUnit:9,notes:"Rafters, sheathing, roofing over porch/deck"},
+  {name:"Screen room enclosure",cat:"Additions & Awnings",icon:"🏡",unit:"lf",unitLabel:"lin ft perimeter",hrsPerUnit:1.15,rateKey:"sk",matPerUnit:31,notes:"Screen frames, screen, spline, door"},
+
+  // ══ PAINTING ═════════════════════════════════════════════════════════════
+  {name:"Interior paint — 2 coats",cat:"Painting",icon:"🎨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.014,rateKey:"paint",matPerUnit:0.38,notes:"Prime + finish (great over VOG walls)"},
+  {name:"Ceiling paint",cat:"Painting",icon:"🎨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.011,rateKey:"paint",matPerUnit:0.22,notes:"~90 sq ft/hr overhead"},
+  {name:"Exterior paint — siding",cat:"Painting",icon:"🎨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.012,rateKey:"paint",matPerUnit:0.38,notes:"~80 sq ft/hr; 2 coats"},
+  {name:"Trim / baseboard paint",cat:"Painting",icon:"🎨",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.1,rateKey:"paint",matPerUnit:0.15,notes:"~10 LF/hr"},
+  {name:"Pressure washing",cat:"Painting",icon:"💧",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.005,rateKey:"gen",matPerUnit:0,notes:"~200 sq ft/hr"},
+
+  // ══ MAINTENANCE & REPAIR ═════════════════════════════════════════════════
+  {name:"General labor / handyman",cat:"Maintenance & Repair",icon:"🔧",unit:"hr",unitLabel:"hours",hrsPerUnit:1,rateKey:"gen",matPerUnit:0,notes:"Catch-all general labor"},
+  {name:"Caulk / weatherseal",cat:"Maintenance & Repair",icon:"🧴",unit:"ea",unitLabel:"per opening",hrsPerUnit:0.5,rateKey:"gen",matPerUnit:2.2,notes:"Reseal windows/doors/penetrations"},
+  {name:"Storm / wind damage repair",cat:"Maintenance & Repair",icon:"🌪️",unit:"hr",unitLabel:"hours",hrsPerUnit:1,rateKey:"sk",matPerUnit:0,notes:"T&M storm repair; materials added separately"},
+  {name:"Disconnect utilities for move",cat:"Maintenance & Repair",icon:"🔌",unit:"ea",unitLabel:"per home",hrsPerUnit:3,rateKey:"sk",matPerUnit:40,notes:"Disconnect water/sewer/elec; cap & prep for transport"},
+  {name:"Hitch / axle / tire service",cat:"Maintenance & Repair",icon:"🛞",unit:"ea",unitLabel:"per home",hrsPerUnit:4,rateKey:"sk",matPerUnit:220,notes:"Re-install axles, tires, hitch for relocation"},
+
+  // ══ DEMOLITION ═══════════════════════════════════════════════════════════
+  {name:"Mobile home demo & removal",cat:"Demolition",icon:"🔨",unit:"ea",unitLabel:"per home",hrsPerUnit:24,rateKey:"equip",matPerUnit:1200,notes:"Tear down, separate metal/debris, haul & dispose"},
+  {name:"Interior strip-out",cat:"Demolition",icon:"🔨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.06,rateKey:"gen",matPerUnit:0,notes:"Strip panels, flooring, cabinets, fixtures"},
+  {name:"Skirting removal",cat:"Demolition",icon:"🔨",unit:"lf",unitLabel:"lin ft",hrsPerUnit:0.05,rateKey:"gen",matPerUnit:0,notes:"Remove & dispose old skirting"},
+  {name:"Flooring tear-out",cat:"Demolition",icon:"🔨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.02,rateKey:"gen",matPerUnit:0,notes:"Pull flooring & underlayment to subfloor"},
+  {name:"Panel / drywall removal",cat:"Demolition",icon:"🔨",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:0.025,rateKey:"gen",matPerUnit:0,notes:"Strip wall/ceiling panels; bag & stage"},
+  {name:"Dumpster rental coordination",cat:"Demolition",icon:"🚛",unit:"ea",unitLabel:"each",hrsPerUnit:1,rateKey:"gen",matPerUnit:400,notes:"20-yd dumpster avg cost; 1 hr coordination"},
 
 ];
 
@@ -2357,7 +2473,7 @@ function loadQuote(id){
   document.getElementById('b-client').value=q.client||'';
   document.getElementById('b-qnum').value=q.qnum||'';
   document.getElementById('b-addr').value=q.addr||'';
-  document.getElementById('b-type').value=q.type||'General Construction';
+  document.getElementById('b-type').value=q.type||'Manufactured Home Setup';
   document.getElementById('b-status').value=q.status||'pending';
   renderLines();recalc();
   switchTab('build','tab-build');
@@ -2377,7 +2493,7 @@ function newQuote(){
   document.getElementById('b-client').value='';
   document.getElementById('b-qnum').value='Q-'+(Math.floor(Math.random()*900)+100);
   document.getElementById('b-addr').value='';
-  document.getElementById('b-type').value='General Construction';
+  document.getElementById('b-type').value='Manufactured Home Setup';
   document.getElementById('b-status').value='pending';
   document.getElementById('lines-section').style.display='none';
   document.getElementById('summary-section').style.display='none';
@@ -2522,7 +2638,7 @@ document.getElementById('b-qnum').value='Q-'+(Math.floor(Math.random()*900)+100)
 
 function toSwitchType(){
   const t=document.getElementById('to-type').value;
-  ['deck','porch','roof','framing','concrete','carport','blockwall'].forEach(p=>{
+  ['skirting','setup','roofover','bellywrap','deck','porch','roof','framing','concrete','carport','blockwall'].forEach(p=>{
     const el=document.getElementById('to-'+p);
     if(el) el.style.display=(p===t)?'block':'none';
   });
@@ -2531,13 +2647,258 @@ function toSwitchType(){
 
 function toCalc(){
   const t=document.getElementById('to-type').value;
-  if(t==='deck') toCalcDeck();
+  if(t==='skirting') toCalcSkirting();
+  else if(t==='setup') toCalcSetup();
+  else if(t==='roofover') toCalcRoofover();
+  else if(t==='bellywrap') toCalcBellywrap();
+  else if(t==='deck') toCalcDeck();
   else if(t==='porch') toCalcPorch();
   else if(t==='roof') toCalcRoof();
   else if(t==='framing') toCalcFraming();
   else if(t==='concrete') toCalcConcrete();
   else if(t==='carport') toCalcCarport();
   else if(t==='blockwall') toCalcBlockwall();
+}
+
+// ══════════════════════════════════════════════════════════
+// MANUFACTURED-HOME TAKEOFF CALCULATORS
+// Quantities: HUD 24 CFR 3285 (Model Manufactured Home Installation
+// Standards), state setup manuals, and SE-TN field practice.
+// Prices are 2025-26 SE-TN baseline; override per job on the Pricing tab.
+// ══════════════════════════════════════════════════════════
+
+// ── SKIRTING / UNDERPINNING TAKEOFF ───────────────────────
+function toCalcSkirting(){
+  const len  = parseFloat(document.getElementById('sk-len').value)||76;
+  const wid  = parseFloat(document.getElementById('sk-wid').value)||16;
+  const htIn = parseFloat(document.getElementById('sk-ht').value)||28;
+  const mat  = document.getElementById('sk-mat').value;
+  const doors= parseInt(document.getElementById('sk-doors').value)||0;
+  const xtraVents = parseInt(document.getElementById('sk-vents').value)||0;
+  const vapor= document.getElementById('sk-vapor').value;
+
+  const perim = (len + wid) * 2;
+  const crawlArea = len * wid;
+  const htFt = htIn / 12;
+  const faceSqft = perim * htFt;
+  // Code venting: 1 sq ft net free vent area per 150 sq ft crawl; typical
+  // foundation vent provides ~0.5 sq ft net free area.
+  const codeVents = Math.ceil(crawlArea / 150 / 0.5);
+  const vents = codeVents + xtraVents;
+
+  // Panel coverage: vinyl/metal panels ~16" wide; sold per panel + rail by LF.
+  const panelMat = {vinyl:9.5, insulated:15, metal:12, faux:26, block:18}[mat];
+  const matLabel = {vinyl:'Vinyl skirting panel', insulated:'Insulated vinyl skirting',
+                    metal:'Metal skirting panel', faux:'Faux rock/brick skirting',
+                    block:'Concrete block skirting'}[mat];
+  const isBlock = (mat==='block');
+  const labHr = {vinyl:0.28, insulated:0.32, metal:0.30, faux:0.40, block:0.55}[mat];
+
+  const items = {};
+  _pushIfPositive(items, 'Skirting Panels & Rail',
+    _iL(matLabel+' — installed', perim*1.05, 'lf', 'lf', panelMat, labHr),
+    _iL('Top & bottom rail / track', isBlock?0:perim*1.05, 'lf', 'lf', 2.4, 0.05),
+    _iL('Corner posts / closures', isBlock?0:Math.ceil(perim/40)+4, 'ea', 'ea', 6.5, 0.1),
+    _iL('Mortar — Type S 70 lb bag (block)', isBlock?Math.ceil(faceSqft/100*3):0, 'bag', 'bag', 8.5, 0.05),
+    _iL('CMU 8×8×16 (block skirting)', isBlock?Math.ceil(faceSqft*1.125):0, 'ea', 'ea', 2.35, 0.0),
+  );
+  _pushIfPositive(items, 'Vents & Access',
+    _iL('Foundation vent (auto/manual)', vents, 'ea', 'ea', 14, 0.3),
+    _iL('Skirting access door 18×30', doors, 'ea', 'ea', 32, 0.4),
+  );
+  _pushIfPositive(items, 'Ground & Moisture',
+    _iL('6-mil ground vapor barrier', vapor==='yes'?crawlArea*1.1:0, 'sqft', 'roll', 0.14, 0.004),
+    _iL('Seam / barrier tape', vapor==='yes'?Math.ceil(crawlArea/200):0, 'roll', 'roll', 12, 0.05),
+  );
+  _pushIfPositive(items, 'Fasteners & Trim',
+    _iL('Skirting screws / ground anchors (box)', Math.ceil(perim/40)+1, 'box', 'box', 14, 0.0),
+    _iL('Backing / furring stakes', Math.ceil(perim/4), 'ea', 'bundle', 1.2, 0.05),
+  );
+
+  const summary = {
+    'Home size':   len+'\' × '+wid+'\'',
+    'Perimeter':   Math.round(perim)+' lf',
+    'Skirt height':htIn+'\" ('+faceSqft.toFixed(0)+' sq ft face)',
+    'Material':    matLabel,
+    'Vents':       vents+' (code min '+codeVents+')',
+    'Access doors':doors,
+    'Vapor barrier': vapor==='yes'? crawlArea.toFixed(0)+' sq ft' : 'None',
+  };
+  toRenderResults(items, summary, 'skirting');
+}
+
+// ── HOME SET, BLOCK & ANCHOR TAKEOFF ──────────────────────
+function toCalcSetup(){
+  const sect = parseInt(document.getElementById('su-sect').value)||2;
+  const len  = parseFloat(document.getElementById('su-len').value)||76;
+  const wid  = parseFloat(document.getElementById('su-wid').value)||28;
+  const space= parseFloat(document.getElementById('su-space').value)||8;
+  const foot = document.getElementById('su-foot').value;
+  const zone = parseInt(document.getElementById('su-zone').value)||1;
+  const vapor= document.getElementById('su-vapor').value;
+
+  const area = len * wid;
+  // Main I-beam rails: 2 per section. Piers along each rail at `space` OC.
+  const rails = sect * 2;
+  const piersPerRail = Math.ceil(len / space) + 1;
+  const mainPiers = rails * piersPerRail;
+  // Perimeter / sidewall piers at openings & marriage line ends (approx).
+  const perimPiers = Math.ceil((len*2)/ (space+2)) + sect*4;
+  const totalPiers = mainPiers + perimPiers;
+  // Marriage-line support posts for multi-section (centerline) at ~8' OC.
+  const mateLineLF = (sect-1) * len;
+  const matePosts = sect>1 ? Math.ceil(mateLineLF/8)*(sect-1>0?1:0) + (sect-1)*Math.ceil(len/8) : 0;
+
+  // Anchors: HUD/state spacing tightens with wind zone.
+  const anchorSpacing = {1:10, 2:8, 3:5.5}[zone];
+  const frameTies = Math.ceil((len*2)/anchorSpacing) * (sect>1?1:1);
+  const anchors = frameTies + (zone>=2 ? Math.ceil(len/anchorSpacing)*2 : 0);
+
+  // Set & level labor scales with sections.
+  const setHrs = {1:16, 2:32, 3:48}[sect];
+
+  const items = {};
+  _pushIfPositive(items, 'Piers & Footings',
+    _iL('Concrete block pier — stack & shim', totalPiers, 'ea', 'ea', 14, 0.6),
+    _iL('ABS footer pad 16×16', foot==='abs'?totalPiers:0, 'ea', 'ea', 8.5, 0.15),
+    _iL('Poured concrete pad 24×24×8', foot==='poured'?totalPiers:0, 'ea', 'ea', 22, 0.8),
+    _iL('Continuous runner footing (poured)', foot==='runner'?Math.ceil(rails*len):0, 'lf', 'lf', 12, 0.45),
+    _iL('Pier shims (hardwood/plastic) — bundle', Math.ceil(totalPiers/10), 'bundle', 'bundle', 18, 0.0),
+    _iL('Centerline / mate-line support post', matePosts, 'ea', 'ea', 34, 0.7),
+  );
+  _pushIfPositive(items, 'Anchors & Tie-Downs',
+    _iL('Ground auger anchor 4ft', anchors, 'ea', 'ea', 16, 0.5),
+    _iL('Frame tie strap & buckle', frameTies, 'ea', 'ea', 9.5, 0.35),
+    _iL('Stabilizer plate (anti-rotation)', anchors, 'ea', 'ea', 12, 0.3),
+    _iL('Longitudinal/sidewall anchor', zone>=2?sect*4:sect*2, 'ea', 'ea', 18, 0.5),
+    _iL('Engineered anchor (Zone III)', zone>=3?Math.ceil(anchors*0.5):0, 'ea', 'ea', 38, 0.8),
+  );
+  _pushIfPositive(items, 'Set & Level Labor',
+    _iL('Set, block, shim & level home', 1, 'ea', 'job', 0, setHrs),
+    _iL('Marriage line close-up & seal', mateLineLF, 'lf', 'lf', 3.5, 0.35),
+    _iL('Final level check & door/window adjust', 1, 'ea', 'job', 0, sect*2),
+  );
+  _pushIfPositive(items, 'Vapor Barrier & Misc',
+    _iL('6-mil ground vapor barrier', vapor==='yes'?area*1.1:0, 'sqft', 'roll', 0.14, 0.004),
+    _iL('Setup hardware / misc fasteners', 1, 'lot', 'lot', 65, 0.0),
+    _iL('Setup permit & inspection (allowance)', 1, 'ea', 'ea', 175, 0.0),
+  );
+
+  const sectLabel = {1:'Single-wide', 2:'Double-wide', 3:'Triple-wide'}[sect];
+  const summary = {
+    'Home':        sectLabel+'  '+len+'\' × '+wid+'\'',
+    'Footprint':   area.toFixed(0)+' sq ft',
+    'Total piers': totalPiers+'  ('+space+'\' OC)',
+    'Footing':     {abs:'ABS pads', poured:'Poured pads', runner:'Runner footing'}[foot],
+    'Anchors':     anchors+'  (Zone '+zone+')',
+    'Frame ties':  frameTies,
+    'Set labor':   setHrs+' hrs',
+  };
+  toRenderResults(items, summary, 'setup');
+}
+
+// ── ROOF-OVER / COATING TAKEOFF ───────────────────────────
+function toCalcRoofover(){
+  const len  = parseFloat(document.getElementById('ro-len').value)||76;
+  const wid  = parseFloat(document.getElementById('ro-wid').value)||28;
+  const type = document.getElementById('ro-type').value;
+  const profile = document.getElementById('ro-profile').value;
+  const coats= parseInt(document.getElementById('ro-coats').value)||2;
+  const insul= document.getElementById('ro-insul').value;
+
+  const pitchFactor = {flat:1.05, low:1.10, pitch:1.20}[profile];
+  const roofSqft = len * wid * pitchFactor;
+  const perim = (len + wid) * 2;
+  const isCoating = (type==='elastomeric' || type==='aluminum');
+
+  const items = {};
+  _pushIfPositive(items, 'Roof Prep',
+    _iL('Pressure wash / clean roof', roofSqft, 'sqft', 'sqft', 0.0, 0.005),
+    _iL('Seam & fastener butyl tape', perim + Math.ceil(roofSqft/120), 'lf', 'roll', 0.85, 0.03),
+    _iL('Primer / etch (metal roof)', isCoating?Math.ceil(roofSqft/250):0, 'gal', 'gal', 34, 0.004),
+  );
+  if(type==='elastomeric'){
+    _pushIfPositive(items, 'Coating / Membrane',
+      _iL('Elastomeric roof coating — 5 gal', Math.ceil(roofSqft/50*coats/5), 'pail', 'pail', 165, 0.0),
+      _iL('Reinforcing fabric (seams/edges)', Math.ceil(perim/150)+Math.ceil(roofSqft/600), 'roll', 'roll', 42, 0.04),
+    );
+  } else if(type==='aluminum'){
+    _pushIfPositive(items, 'Coating / Membrane',
+      _iL('Aluminum fibered coating — 5 gal', Math.ceil(roofSqft/70*coats/5), 'pail', 'pail', 95, 0.0),
+    );
+  } else if(type==='tpo'){
+    _pushIfPositive(items, 'Coating / Membrane',
+      _iL('TPO/EPDM membrane', roofSqft*1.1, 'sqft', 'roll', 1.45, 0.0),
+      _iL('Bonding adhesive — 5 gal', Math.ceil(roofSqft/300), 'pail', 'pail', 185, 0.0),
+      _iL('Termination bar + cover tape', perim, 'lf', 'lf', 1.6, 0.05),
+    );
+  } else if(type==='metal'){
+    _pushIfPositive(items, 'Metal Roof-Over',
+      _iL('Furring strips / hat channel', Math.ceil(roofSqft/2), 'lf', 'lf', 0.65, 0.01),
+      _iL('Metal roofing panels (29-ga)', roofSqft*1.1, 'sqft', 'sqft', 2.6, 0.03),
+      _iL('Ridge cap + closures', len, 'lf', 'lf', 2.2, 0.06),
+      _iL('Roofing screws w/ washers (250 box)', Math.ceil(roofSqft/100)+1, 'box', 'box', 28, 0.0),
+    );
+  }
+  _pushIfPositive(items, 'Flashing & Fasteners',
+    _iL('Drip edge / trim', perim, 'lf', 'lf', 0.55, 0.08),
+    _iL('Roof vent / turbine reset', Math.ceil(len/20), 'ea', 'ea', 32, 0.75),
+    _iL('Rigid foam insulation board', insul==='yes'?roofSqft:0, 'sqft', 'sheet', 0.95, 0.01),
+    _iL('Sealant / caulk tubes', Math.ceil(perim/20)+2, 'tube', 'tube', 7, 0.0),
+  );
+
+  const typeLabel = {elastomeric:'Elastomeric coating', aluminum:'Aluminum coating',
+                     tpo:'TPO/EPDM membrane', metal:'Metal roof-over'}[type];
+  const summary = {
+    'Roof size':   len+'\' × '+wid+'\'',
+    'Roof area':   roofSqft.toFixed(0)+' sq ft',
+    'System':      typeLabel,
+    'Profile':     {flat:'Flat/bowstring', low:'Low 2:12', pitch:'Pitched 4:12'}[profile],
+    'Coats':       isCoating? coats : 'N/A',
+    'Insulation':  insul==='yes'?'Rigid foam added':'None',
+  };
+  toRenderResults(items, summary, 'roofover');
+}
+
+// ── UNDERBELLY / BELLY WRAP TAKEOFF ───────────────────────
+function toCalcBellywrap(){
+  const len  = parseFloat(document.getElementById('be-len').value)||76;
+  const wid  = parseFloat(document.getElementById('be-wid').value)||16;
+  const scope= document.getElementById('be-scope').value;
+  const patch= parseInt(document.getElementById('be-patch').value)||0;
+  const insul= document.getElementById('be-insul').value;
+  const rodent=document.getElementById('be-rodent').value;
+
+  const area = len * wid;
+  const full = (scope==='full');
+  const workArea = full ? area : Math.min(area, patch*32); // ~32 sqft per patch
+  const insulMat = {none:0, r11:0.55, r19:0.85}[insul];
+  const insulLabel = {none:'', r11:'Underbelly insulation R-11', r19:'Underbelly insulation R-19'}[insul];
+
+  const items = {};
+  _pushIfPositive(items, 'Belly Board & Wrap',
+    _iL('Belly board / bottom board (poly)', full?area*1.1:0, 'sqft', 'roll', 0.85, 0.05),
+    _iL('Belly wrap patch / repair', full?0:patch, 'ea', 'ea', 18, 0.6),
+  );
+  _pushIfPositive(items, 'Insulation',
+    _iL(insulLabel||'Underbelly insulation', insul==='none'?0:workArea, 'sqft', 'batt', insulMat, insul==='r19'?0.025:0.02),
+  );
+  _pushIfPositive(items, 'Fasteners & Tape',
+    _iL('Belly repair tape (poly seam)', full?Math.ceil(area/8):patch*8, 'lf', 'roll', 0.45, 0.03),
+    _iL('Belly board staples / fasteners (box)', Math.ceil(workArea/250)+1, 'box', 'box', 12, 0.0),
+    _iL('Rodent barrier wire mesh', rodent==='yes'?Math.ceil(workArea*0.15):0, 'sqft', 'roll', 0.5, 0.02),
+    _iL('Spray foam — penetration seal', Math.ceil(workArea/200)+1, 'can', 'can', 7, 0.05),
+  );
+
+  const summary = {
+    'Home size':  len+'\' × '+wid+'\'',
+    'Belly area': area.toFixed(0)+' sq ft',
+    'Scope':      full?'Full replacement':(patch+' patches'),
+    'Work area':  workArea.toFixed(0)+' sq ft',
+    'Insulation': {none:'Reuse existing', r11:'R-11', r19:'R-19'}[insul],
+    'Rodent mesh':rodent==='yes'?'Yes':'No',
+  };
+  toRenderResults(items, summary, 'bellywrap');
 }
 
 // ── DECK TAKEOFF ──────────────────────────────────────────
@@ -3671,6 +4032,10 @@ window.editTakeoffQty = function(inp){
 function _i(name, qty, unit, orderUnit, matCostEach){
   return {name, qty: Math.max(0, Math.ceil(qty*10)/10), unit, orderUnit: orderUnit||unit, matCostEach};
 }
+// Item with an explicit per-unit labor estimate (used by MH takeoffs).
+function _iL(name, qty, unit, orderUnit, matCostEach, laborHrsEach){
+  return {name, qty: Math.max(0, Math.ceil(qty*10)/10), unit, orderUnit: orderUnit||unit, matCostEach, laborHrsEach: laborHrsEach||0};
+}
 function _pushIfPositive(items, cat, ...newItems){
   if(!items[cat]) items[cat] = [];
   items[cat].push(...newItems.filter(it=>it.qty>0));
@@ -4004,6 +4369,15 @@ function toRenderResults(items, summary, type){
     'Core Grout Fill':     R.mason, 'Wall Cap':          R.mason,
     'Waterproofing':       R.sk,  'Drainage':            R.sk,
     'Wall Finish':         R.mason,
+    // ── Manufactured-home takeoff sections ──
+    'Skirting Panels & Rail': R.side, 'Vents & Access':      R.side,
+    'Ground & Moisture':   R.gen,  'Fasteners & Trim':      R.side,
+    'Piers & Footings':    R.sk,   'Anchors & Tie-Downs':   R.sk,
+    'Set & Level Labor':   R.sk,   'Vapor Barrier & Misc':  R.gen,
+    'Roof Prep':           R.roof, 'Coating / Membrane':    R.roof,
+    'Metal Roof-Over':     R.roof, 'Flashing & Fasteners':  R.roof,
+    'Belly Board & Wrap':  R.sk,   'Insulation':            R.sk,
+    'Fasteners & Tape':    R.sk,
   };
 
   // Estimate labor by category if not provided explicitly
@@ -13557,11 +13931,11 @@ function buildToTakeoff(){
   // Guess from categories present in the build quote
   const catSet  = new Set(rows.map(r=>r.cat));
   let toType    = 'build'; // custom type — handled specially in toRenderResults
-  if(catSet.has('Deck'))               toType = 'deck';
-  else if(catSet.has('Roofing'))       toType = 'roof';
-  else if(catSet.has('Framing'))       toType = 'framing';
-  else if(catSet.has('Concrete'))      toType = 'concrete';
-  else if(catSet.has('Trex Railing'))  toType = 'deck';
+  if(catSet.has('Skirting & Underpinning'))   toType = 'skirting';
+  else if(catSet.has('Transport & Setup'))    toType = 'setup';
+  else if(catSet.has('Underbelly / Belly'))   toType = 'bellywrap';
+  else if(catSet.has('Roofing'))              toType = 'roofover';
+  else if(catSet.has('Decks, Steps & Ramps')) toType = 'deck';
 
   // ── SWITCH TO TAKEOFF TAB AND RENDER ─────────────────────────────────
   // Show the takeoff results section regardless of project type selector
