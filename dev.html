@@ -391,13 +391,8 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           <div class="field"><label>Project Type</label>
             <select id="to-type" onchange="toSwitchType()">
               <option value="deck">Deck / Outdoor Structure</option>
-              <option value="porch">Covered Porch</option>
-              <option value="roof">Roofing</option>
-              <option value="framing">Room Addition / Wall Framing</option>
-              <option value="concrete">Concrete & Foundation</option>
-              <option value="carport">Carport</option>
-              <option value="blockwall">Block / Retaining Wall</option>
-              <option value="mobilehome">Mobile / Manufactured Home</option>
+              <option value="skirting">Skirting</option>
+              <option value="underbelly">Underbelly</option>
             </select>
           </div>
           <div class="field"><label>Project Name / Description</label>
@@ -1086,51 +1081,61 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       </div>
 
       <!-- MOBILE / MANUFACTURED HOME inputs -->
-      <div id="to-mobilehome" class="to-panel" style="display:none">
+      <!-- SKIRTING inputs -->
+      <div id="to-skirting" class="to-panel" style="display:none">
         <div class="section">
-          <div class="section-head"><span class="section-title">Mobile Home — Job & Dimensions</span></div>
+          <div class="section-head"><span class="section-title">Skirting — Material & Dimensions</span></div>
           <div class="section-body">
-            <div class="field"><label>Job</label>
-              <select id="mh-job" onchange="toCalc()">
-                <option value="skirting">Skirting (panels, vents, access doors)</option>
-                <option value="setup">Setup — block, level &amp; tie-downs</option>
-                <option value="roofover">Roof-over / coating</option>
-                <option value="underbelly">Underbelly / vapor barrier</option>
+            <div class="field"><label>Skirting material</label>
+              <select id="sk-mat" onchange="toCalc()">
+                <option value="vinyl">Vinyl</option>
+                <option value="block">Block (CMU)</option>
+                <option value="stucco">Stucco</option>
               </select>
             </div>
             <div class="field-row">
               <div class="field"><label>Sections</label>
-                <select id="mh-sections" onchange="toCalc()">
+                <select id="sk-sections" onchange="toCalc()">
                   <option value="1">Single-wide</option>
                   <option value="2" selected>Double-wide</option>
                   <option value="3">Triple-wide</option>
                 </select>
               </div>
-              <div class="field"><label>Home length (ft)</label><input type="number" id="mh-len" value="60" min="20" max="90" step="1" oninput="toCalc()"/></div>
+              <div class="field"><label>Home length (ft)</label><input type="number" id="sk-len" value="60" min="20" max="90" step="1" oninput="toCalc()"/></div>
             </div>
             <div class="field-row">
-              <div class="field"><label>Width per section (ft)</label><input type="number" id="mh-wid" value="14" min="8" max="18" step="1" oninput="toCalc()"/></div>
-              <div class="field"><label>Wall height (ft)</label><input type="number" id="mh-wallht" value="8" min="7" max="10" step="0.5" oninput="toCalc()"/></div>
+              <div class="field"><label>Width per section (ft)</label><input type="number" id="sk-wid" value="14" min="8" max="18" step="1" oninput="toCalc()"/></div>
+              <div class="field"><label>Skirting height (ft)</label><input type="number" id="sk-skht" value="2.5" min="0.5" max="6" step="0.5" oninput="toCalc()"/></div>
             </div>
             <div class="field-row">
-              <div class="field"><label>Ground gap / skirting height (ft)</label><input type="number" id="mh-skht" value="2.5" min="0.5" max="6" step="0.5" oninput="toCalc()"/></div>
-              <div class="field"><label>Pier spacing (ft)</label><input type="number" id="mh-piersp" value="8" min="4" max="12" step="1" oninput="toCalc()"/></div>
+              <div class="field"><label>Access doors</label><input type="number" id="sk-doors" value="1" min="0" max="6" step="1" oninput="toCalc()"/></div>
+              <div class="field"></div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UNDERBELLY inputs -->
+      <div id="to-underbelly" class="to-panel" style="display:none">
+        <div class="section">
+          <div class="section-head"><span class="section-title">Underbelly — Dimensions</span></div>
+          <div class="section-body">
             <div class="field-row">
-              <div class="field"><label>Skirting material</label>
-                <select id="mh-skmat" onchange="toCalc()">
-                  <option value="vinyl">Vinyl</option>
-                  <option value="faux">Faux stone / insulated</option>
+              <div class="field"><label>Sections</label>
+                <select id="ub-sections" onchange="toCalc()">
+                  <option value="1">Single-wide</option>
+                  <option value="2" selected>Double-wide</option>
+                  <option value="3">Triple-wide</option>
                 </select>
               </div>
-              <div class="field"><label>Roof pitch (x:12)</label><input type="number" id="mh-pitch" value="3" min="0" max="6" step="0.5" oninput="toCalc()"/></div>
+              <div class="field"><label>Home length (ft)</label><input type="number" id="ub-len" value="60" min="20" max="90" step="1" oninput="toCalc()"/></div>
             </div>
             <div class="field-row">
-              <div class="field"><label>Access doors (skirting)</label><input type="number" id="mh-doors" value="1" min="0" max="6" step="1" oninput="toCalc()"/></div>
-              <div class="field"><label>Roof material (roof-over)</label>
-                <select id="mh-roofmat" onchange="toCalc()">
-                  <option value="coat">Elastomeric coating</option>
-                  <option value="metal">Metal roof-over kit</option>
+              <div class="field"><label>Width per section (ft)</label><input type="number" id="ub-wid" value="14" min="8" max="18" step="1" oninput="toCalc()"/></div>
+              <div class="field"><label>Scope</label>
+                <select id="ub-insul" onchange="toCalc()">
+                  <option value="vapor">Vapor barrier + belly wrap</option>
+                  <option value="insul">Vapor barrier + R-19 insulation</option>
                 </select>
               </div>
             </div>
@@ -2000,6 +2005,10 @@ const TASKS = [
   {name:"Skirting access door",cat:"MH Skirting",icon:"🚪",unit:"ea",unitLabel:"each",hrsPerUnit:.5,rateKey:"side",matPerUnit:65,notes:"18×24 or larger access panel. Door $50-85 (Angi 2026)"},
   {name:"Foundation / skirting vent",cat:"MH Skirting",icon:"🌬️",unit:"ea",unitLabel:"each",hrsPerUnit:.25,rateKey:"side",matPerUnit:14,notes:"Code: ~1 sqft net vent per 150 sqft of crawl. Vents $7-25 ea"},
   {name:"Insulated / faux-stone skirting — upgrade",cat:"MH Skirting",icon:"🪨",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.16,rateKey:"side",matPerUnit:14,notes:"Faux-stone or insulated panel premium over standard vinyl"},
+  {name:"Block skirting — 4\" CMU wall",cat:"MH Skirting",icon:"🧱",unit:"sqft",unitLabel:"sq ft face",hrsPerUnit:.28,rateKey:"mason",matPerUnit:4.5,notes:"4\" CMU stem wall around perimeter; ~1.125 block/sqft, mortar incl."},
+  {name:"Skirting footer — poured (8×16)",cat:"MH Skirting",icon:"🏗️",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.3,rateKey:"sk",matPerUnit:6,notes:"Continuous footer under block skirting; forms, rebar, concrete"},
+  {name:"Stucco skirting — backer & lath",cat:"MH Skirting",icon:"🧱",unit:"sqft",unitLabel:"sq ft face",hrsPerUnit:.08,rateKey:"sk",matPerUnit:2.2,notes:"Cement backer board + metal lath base around perimeter"},
+  {name:"Stucco skirting — 3-coat finish",cat:"MH Skirting",icon:"🎨",unit:"sqft",unitLabel:"sq ft face",hrsPerUnit:.12,rateKey:"mason",matPerUnit:3.5,notes:"Scratch, brown & finish coats; integral color or paint"},
 
   // ── MH UNDERBELLY & INSULATION ───────────────────────────
   {name:"Belly wrap (bottom board) repair",cat:"MH Underbelly",icon:"🩹",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.012,rateKey:"gen",matPerUnit:.35,notes:"Patch/replace poly belly wrap + Flex-Mend tape over tears"},
@@ -2675,7 +2684,7 @@ document.getElementById('b-qnum').value='Q-'+(Math.floor(Math.random()*900)+100)
 
 function toSwitchType(){
   const t=document.getElementById('to-type').value;
-  ['deck','porch','roof','framing','concrete','carport','blockwall','mobilehome'].forEach(p=>{
+  ['deck','skirting','underbelly','porch','roof','framing','concrete','carport','blockwall'].forEach(p=>{
     const el=document.getElementById('to-'+p);
     if(el) el.style.display=(p===t)?'block':'none';
   });
@@ -2684,97 +2693,71 @@ function toSwitchType(){
 
 function toCalc(){
   const t=document.getElementById('to-type').value;
-  if(t==='deck') toCalcDeck();
-  else if(t==='porch') toCalcPorch();
-  else if(t==='roof') toCalcRoof();
-  else if(t==='framing') toCalcFraming();
-  else if(t==='concrete') toCalcConcrete();
-  else if(t==='carport') toCalcCarport();
-  else if(t==='blockwall') toCalcBlockwall();
-  else if(t==='mobilehome') toCalcMobileHome();
+  if(t==='skirting') toCalcSkirting();
+  else if(t==='underbelly') toCalcUnderbelly();
+  else toCalcDeck();
 }
 
-// ── MOBILE / MANUFACTURED HOME TAKEOFF ────────────────────
-function toCalcMobileHome(){
-  const job      = document.getElementById('mh-job')?.value || 'skirting';
-  const sections = parseInt(document.getElementById('mh-sections')?.value)||1;
-  const len      = parseFloat(document.getElementById('mh-len')?.value)||60;
-  const secWid   = parseFloat(document.getElementById('mh-wid')?.value)||14;
-  const wallHt   = parseFloat(document.getElementById('mh-wallht')?.value)||8;
-  const skHt     = parseFloat(document.getElementById('mh-skht')?.value)||2.5;
-  const pierSp   = parseFloat(document.getElementById('mh-piersp')?.value)||8;
-  const skMat    = document.getElementById('mh-skmat')?.value || 'vinyl';
-  const pitch    = parseFloat(document.getElementById('mh-pitch')?.value)||3;
-  const doors    = parseInt(document.getElementById('mh-doors')?.value)||0;
-  const roofMat  = document.getElementById('mh-roofmat')?.value || 'coat';
+// ── SKIRTING TAKEOFF (vinyl / block / stucco) ─────────────
+function toCalcSkirting(){
+  const skMat    = document.getElementById('sk-mat')?.value || 'vinyl';
+  const sections = parseInt(document.getElementById('sk-sections')?.value)||1;
+  const len      = parseFloat(document.getElementById('sk-len')?.value)||60;
+  const secWid   = parseFloat(document.getElementById('sk-wid')?.value)||14;
+  const skHt     = parseFloat(document.getElementById('sk-skht')?.value)||2.5;
+  const doors    = parseInt(document.getElementById('sk-doors')?.value)||0;
 
   const totalWid  = secWid * sections;
   const perimeter = 2*(len + totalWid);
   const footprint = len * totalWid;
-  const roofMult  = Math.sqrt(1 + Math.pow(pitch/12,2));
-  const roofArea  = Math.round(footprint * roofMult);
+  const wallSqft  = Math.round(perimeter * skHt);            // face area of skirting wall
+  const ventQty   = Math.max(2, Math.ceil(footprint/150));   // ~1 sq ft net per 150 sq ft crawl
 
-  // Pier grid — one beam line per section seam plus the two outer rails
-  const piersPerRow = Math.floor(len/pierSp)+1;
-  const pierQty     = (sections+1) * piersPerRow;
-  // Frame tie-down anchors — roughly every 8 ft of perimeter, HUD min spacing
-  const anchorQty   = Math.max(8, Math.ceil(perimeter/8));
-  // Skirting vents — code ~1 sq ft net free area per 150 sq ft of crawl
-  const ventQty     = Math.max(2, Math.ceil(footprint/150));
-
-  const items = {};
-
-  if(job==='skirting'){
-    items['MH Skirting'] = [
-      {name:'Vinyl skirting — install', qty: Math.round(perimeter), unit:'lf', orderUnit:'lf'},
-    ];
-    if(skMat==='faux') items['MH Skirting'].push({name:'Insulated / faux-stone skirting — upgrade', qty: Math.round(perimeter), unit:'lf', orderUnit:'lf'});
-    items['MH Skirting'].push({name:'Foundation / skirting vent', qty: ventQty, unit:'ea', orderUnit:'ea'});
-    if(doors>0) items['MH Skirting'].push({name:'Skirting access door', qty: doors, unit:'ea', orderUnit:'ea'});
+  const items = {'MH Skirting': []};
+  if(skMat==='vinyl'){
+    items['MH Skirting'].push({name:'Vinyl skirting — install', qty: Math.round(perimeter), unit:'lf', orderUnit:'lf'});
+  } else if(skMat==='block'){
+    items['MH Skirting'].push({name:'Skirting footer — poured (8×16)', qty: Math.round(perimeter), unit:'lf', orderUnit:'lf'});
+    items['MH Skirting'].push({name:'Block skirting — 4" CMU wall', qty: wallSqft, unit:'sqft', orderUnit:'sqft'});
+  } else { // stucco
+    items['MH Skirting'].push({name:'Stucco skirting — backer & lath', qty: wallSqft, unit:'sqft', orderUnit:'sqft'});
+    items['MH Skirting'].push({name:'Stucco skirting — 3-coat finish', qty: wallSqft, unit:'sqft', orderUnit:'sqft'});
   }
-  else if(job==='setup'){
-    items['MH Setup & Leveling'] = [
-      sections>=2
-        ? {name:'MH initial set & block — double-wide', qty:1, unit:'ea', orderUnit:'ea'}
-        : {name:'MH initial set & block — single-wide', qty:1, unit:'ea', orderUnit:'ea'},
-      {name:'MH pier & block stack — new (ABS pad)', qty: pierQty, unit:'ea', orderUnit:'ea'},
-      {name:'MH tie-down anchor — auger install', qty: anchorQty, unit:'ea', orderUnit:'ea'},
-    ];
-    if(sections>=2) items['MH Setup & Leveling'].push({name:'MH marriage line synchronization (double-wide)', qty:1, unit:'ea', orderUnit:'ea'});
-  }
-  else if(job==='roofover'){
-    if(roofMat==='metal'){
-      items['MH Roofing'] = [
-        {name:'Metal roof-over kit — install', qty: roofArea, unit:'sqft', orderUnit:'sqft'},
-        {name:'Roof seam / vent re-seal', qty: Math.round(len), unit:'lf', orderUnit:'lf'},
-      ];
-    } else {
-      items['MH Roofing'] = [
-        {name:'Roof-over coating — elastomeric', qty: roofArea, unit:'sqft', orderUnit:'sqft'},
-        {name:'Roof seam / vent re-seal', qty: Math.round(len), unit:'lf', orderUnit:'lf'},
-      ];
-    }
-  }
-  else if(job==='underbelly'){
-    items['MH Underbelly'] = [
-      {name:'Underbelly vapor barrier — replace', qty: Math.round(footprint), unit:'sqft', orderUnit:'sqft'},
-      {name:'Belly wrap (bottom board) repair', qty: Math.round(footprint*0.2), unit:'sqft', orderUnit:'sqft'},
-    ];
-    if(sections>=2) items['MH Utilities'] = [
-      {name:'Crossover duct — replace (double-wide)', qty:1, unit:'ea', orderUnit:'ea'},
-    ];
-  }
+  items['MH Skirting'].push({name:'Foundation / skirting vent', qty: ventQty, unit:'ea', orderUnit:'ea'});
+  if(doors>0) items['MH Skirting'].push({name:'Skirting access door', qty: doors, unit:'ea', orderUnit:'ea'});
 
   const cfg = (sections===1?'Single':sections===2?'Double':'Triple')+'-wide';
-  const summary = {'Configuration':cfg, 'Footprint':Math.round(footprint)+' sq ft'};
-  if(job==='skirting'){ summary['Skirting perimeter']=Math.round(perimeter)+' lf'; summary['Vents']=ventQty; summary['Access doors']=doors; }
-  else if(job==='setup'){ summary['Piers']=pierQty; summary['Tie-down anchors']=anchorQty; summary['Pier spacing']=pierSp+"' OC"; }
-  else if(job==='roofover'){ summary['Roof area']=roofArea+' sq ft'; summary['Pitch']=pitch+':12'; summary['System']=roofMat==='metal'?'Metal roof-over':'Elastomeric coat'; }
-  else if(job==='underbelly'){ summary['Underbelly area']=Math.round(footprint)+' sq ft'; if(sections>=2) summary['Crossover duct']='1'; }
+  const matLabel = {vinyl:'Vinyl',block:'Block (CMU)',stucco:'Stucco'}[skMat]||'Vinyl';
+  const summary = {'Material':matLabel, 'Configuration':cfg, 'Perimeter':Math.round(perimeter)+' lf', 'Wall area':wallSqft+' sq ft', 'Vents':ventQty, 'Access doors':doors};
 
-  render2D('mobilehome', {job, sections, len, secWid, totalWid, wallHt, skHt, pierSp, skMat, pitch, doors, roofMat, perimeter, footprint, pierQty, anchorQty, ventQty});
+  render2D('skirting', {job:'skirting', skMat, sections, len, secWid, totalWid, wallHt:8, skHt, pitch:3, doors, perimeter, footprint, ventQty});
+  toRenderResults(items, summary, 'skirting');
+}
 
-  toRenderResults(items, summary, 'mobilehome');
+// ── UNDERBELLY TAKEOFF ────────────────────────────────────
+function toCalcUnderbelly(){
+  const sections = parseInt(document.getElementById('ub-sections')?.value)||1;
+  const len      = parseFloat(document.getElementById('ub-len')?.value)||60;
+  const secWid   = parseFloat(document.getElementById('ub-wid')?.value)||14;
+  const scope    = document.getElementById('ub-insul')?.value || 'vapor';
+
+  const totalWid  = secWid * sections;
+  const footprint = Math.round(len * totalWid);
+  const perimeter = 2*(len + totalWid);
+
+  const items = {'MH Underbelly': [
+    {name:'Underbelly vapor barrier — replace', qty: footprint, unit:'sqft', orderUnit:'sqft'},
+    {name:'Belly wrap (bottom board) repair', qty: Math.round(footprint*0.2), unit:'sqft', orderUnit:'sqft'},
+  ]};
+  if(scope==='insul') items['MH Underbelly'].push({name:'Underbelly insulation — R-19 batt', qty: footprint, unit:'sqft', orderUnit:'sqft'});
+  if(sections>=2) items['MH Utilities'] = [{name:'Crossover duct — replace (double-wide)', qty:1, unit:'ea', orderUnit:'ea'}];
+
+  const cfg = (sections===1?'Single':sections===2?'Double':'Triple')+'-wide';
+  const summary = {'Configuration':cfg, 'Underbelly area':footprint+' sq ft', 'Scope':scope==='insul'?'Vapor + R-19':'Vapor barrier'};
+  if(sections>=2) summary['Crossover duct']='1';
+
+  render2D('underbelly', {job:'underbelly', sections, len, secWid, totalWid, wallHt:8, skHt:2.5, pitch:3, footprint, perimeter});
+  toRenderResults(items, summary, 'underbelly');
 }
 
 // ── DECK TAKEOFF ──────────────────────────────────────────
@@ -6477,10 +6460,27 @@ function drawMobileHome2D(ctx, w, h, params){
   // Skirting band (between floor and ground) — hidden when doing setup
   if(job!=='setup'){
     const skEmph = job==='skirting';
-    ctx.fillStyle = skEmph ? (skMat==='faux'? 'rgba(150,140,120,0.9)':'rgba(180,190,200,0.9)') : 'rgba(180,190,200,0.30)';
+    const skFill = {vinyl:'rgba(180,190,200,0.92)', block:'rgba(176,168,152,0.95)', stucco:'rgba(216,205,184,0.95)'};
+    ctx.fillStyle = skEmph ? (skFill[skMat]||skFill.vinyl) : 'rgba(180,190,200,0.30)';
     ctx.fillRect(homeX, floorY, homeW, ph);
-    ctx.strokeStyle = skEmph? 'rgba(60,80,100,0.55)':'rgba(60,80,100,0.22)'; ctx.lineWidth=0.7;
-    for(let x=homeX+8; x<homeX+homeW; x+=10){ ctx.beginPath(); ctx.moveTo(x,floorY); ctx.lineTo(x,groundY); ctx.stroke(); }
+    // Material texture
+    if(skEmph && skMat==='block'){
+      ctx.strokeStyle='rgba(90,90,90,0.5)'; ctx.lineWidth=0.6;
+      const courseH=Math.max(4, ph/Math.max(2,Math.round(skHt/0.667)));
+      let row=0;
+      for(let y=floorY; y<groundY; y+=courseH){
+        ctx.beginPath(); ctx.moveTo(homeX,y); ctx.lineTo(homeX+homeW,y); ctx.stroke();
+        const off=(row%2)?8:0;
+        for(let x=homeX+off; x<homeX+homeW; x+=16){ ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x,Math.min(y+courseH,groundY)); ctx.stroke(); }
+        row++;
+      }
+    } else if(skEmph && skMat==='stucco'){
+      ctx.fillStyle='rgba(120,105,80,0.28)';
+      for(let y=floorY+3; y<groundY; y+=4){ for(let x=homeX+3; x<homeX+homeW; x+=5){ ctx.fillRect(x+((Math.round(y)%8)?1:0), y, 1, 1); } }
+    } else {
+      ctx.strokeStyle = skEmph? 'rgba(60,80,100,0.55)':'rgba(60,80,100,0.22)'; ctx.lineWidth=0.7;
+      for(let x=homeX+8; x<homeX+homeW; x+=10){ ctx.beginPath(); ctx.moveTo(x,floorY); ctx.lineTo(x,groundY); ctx.stroke(); }
+    }
     ctx.strokeStyle = skEmph? C.teal:'rgba(52,96,126,0.4)'; ctx.lineWidth = skEmph?2:1;
     ctx.strokeRect(homeX, floorY, homeW, ph);
     if(job==='skirting'){
@@ -6488,7 +6488,7 @@ function drawMobileHome2D(ctx, w, h, params){
       const nv=Math.min(Math.max(ventQty,1), Math.max(1,Math.floor(homeW/60)));
       for(let v=0; v<nv; v++){ const vx=homeX+(v+0.5)/nv*homeW-7; ctx.fillRect(vx, floorY+ph/2-4, 14, 8); }
       if(doors>0){ const dh=Math.min(20,ph*0.8); ctx.fillStyle=C.gold; ctx.fillRect(homeX+homeW*0.18, groundY-dh, 12, dh); ctx.strokeStyle=C.woodDark; ctx.strokeRect(homeX+homeW*0.18, groundY-dh, 12, dh); }
-      callout(ctx, homeX+homeW+4, (floorY+groundY)/2, skMat==='faux'?'Faux-stone skirting':'Vinyl skirting', C.teal);
+      callout(ctx, homeX+homeW+4, (floorY+groundY)/2, {vinyl:'Vinyl skirting',block:'Block skirting',stucco:'Stucco skirting'}[skMat]||'Skirting', C.teal);
     }
   }
 
@@ -6672,7 +6672,8 @@ const PHASE_NAMES = {
   concrete: ['Excavation & Layout','Vapor Barrier & Gravel','Form Boards','Rebar Placement','Wire Mesh','Concrete Pour & Finish','Curing & Seal'],
   carport:  ['Foundation & Post Setting','Roof Beam & Purlins','Roof Sheathing','Roofing Material','Side Walls (if any)','Gutters & Trim','Final Inspection'],
   blockwall:['Site Layout & Excavation','Footer Forms & Rebar','Footer Pour & Cure','Lay First Course','Build Up Courses & Rebar','Grout Cells & Cap','Waterproof / Drain / Finish'],
-  mobilehome:['Site Prep & Layout','Block & Pier Set','Level & Marriage Line','Tie-Down Anchors','Underbelly & Crossover','Skirting & Vents','Final Inspection'],
+  skirting:['Measure & Layout','Set Track / Footer','Panels / Wall','Corners & Trim','Vents','Access Door','Final Walk'],
+  underbelly:['Inspect & Access','Remove Damaged Wrap','Repair / Insulate','New Vapor Barrier','Seal Seams','Crossover Duct','Final Check'],
 };
 
 // ── VIEW / PHASE / ORIENT SWITCHERS ──────────────────────────────────────
@@ -8974,7 +8975,7 @@ function render2DFull(type, params){
   else if(type==='concrete') drawConcrete2D(ctx,w,h,params);
   else if(type==='carport') drawCarport2D(ctx,w,h,params);
   else if(type==='blockwall') drawBlockwall2D(ctx,w,h,params);
-  else if(type==='mobilehome') drawMobileHome2D(ctx,w,h,params);
+  else if(type==='skirting'||type==='underbelly') drawMobileHome2D(ctx,w,h,params);
 
   // Draw selection handles on top
   _ppDrawHandles(ctx);
@@ -9003,7 +9004,8 @@ function render2DFull(type, params){
       porch:`${params.len}' × ${params.dep}'  ·  ${params.flHt}' floor height  ·  ${params.roofStyle} roof`,
       carport:`${params.len}' × ${params.wid}'  ·  ${params.ht}' eave  ·  ${params.pitch}:12 pitch  ·  ${params.postSp || 8}' OC posts`,
       blockwall:`${params.len}' × ${params.ht}'  ·  ${params.blkSz}" CMU  ·  ${params.courses} courses  ·  ${({none:'hollow', rebar_only:'rebar cells filled', alt:'every-other filled', all:'all cores filled'}[params.fill]||'')}${params.vReb>0?'  ·  #5 vert @ '+params.vReb+'" OC':''}${params.footer&&params.footer!=='none'?'  ·  Footer '+params.footer:''}`,
-      mobilehome:`${({skirting:'Skirting',setup:'Setup / Level / Tie-Downs',roofover:'Roof-Over / Coating',underbelly:'Underbelly / Vapor Barrier'}[params.job]||'Mobile Home')}  ·  ${params.sections===1?'Single':params.sections===2?'Double':'Triple'}-wide  ·  ${params.len}' × ${params.totalWid}'  ·  ${Math.round(params.perimeter)}' perimeter  ·  ${Math.round(params.footprint)} sq ft`,
+      skirting:`${({vinyl:'Vinyl',block:'Block (CMU)',stucco:'Stucco'}[params.skMat]||'')} skirting  ·  ${params.sections===1?'Single':params.sections===2?'Double':'Triple'}-wide  ·  ${params.len}' × ${params.totalWid}'  ·  ${Math.round(params.perimeter)}' perimeter`,
+      underbelly:`Underbelly / vapor barrier  ·  ${params.sections===1?'Single':params.sections===2?'Double':'Triple'}-wide  ·  ${params.len}' × ${params.totalWid}'  ·  ${Math.round(params.footprint)} sq ft`,
     };
     dimsEl.textContent=labels[type] ? labels[type] + '  |  Drag posts / columns / stairs / lights to reposition.  |  Per IRC 2021: verify footing depth R403, ledger attachment R507.9, railing height ≥36" R312.1, stair geometry R311.7.' : '';
   }
@@ -13201,15 +13203,15 @@ Return this exact structure:
     "vapor": null,
     "piers": null
   },
-  "mobilehomeDetails": {
-    "job": null,
+  "skirtingDetails": {
+    "material": null,
     "sections": null,
-    "wallHeight": null,
-    "groundGap": null,
-    "pitch": null,
-    "skirtMaterial": null,
-    "roofMaterial": null,
+    "skirtHeight": null,
     "doors": null
+  },
+  "underbellyDetails": {
+    "sections": null,
+    "insulation": null
   }
 }
 
@@ -13219,8 +13221,9 @@ Rules:
 - For spacing like "16in OC" use 16 as the spacing value
 - If not specified, use null — never guess unless it's a standard default
 - List any important assumptions you made in the "assumptions" array
-- Use projectType "mobilehome" for any manufactured/mobile home work: skirting, setup/blocking/leveling/tie-downs, roof-over/coating, or underbelly/vapor barrier. For mobilehome, set mobilehomeDetails.job to one of: skirting, setup, roofover, underbelly. sections is 1 (single-wide), 2 (double-wide), or 3 (triple-wide). Put the OVERALL home width in dimensions.width and home length in dimensions.length.
-- projectType must be one of: deck, porch, roof, framing, concrete, carport, mobilehome, other`;
+- Use projectType "skirting" for mobile/manufactured home skirting. Set skirtingDetails.material to vinyl, block, or stucco. sections is 1 (single-wide), 2 (double-wide), or 3 (triple-wide). Put the OVERALL home width in dimensions.width and home length in dimensions.length.
+- Use projectType "underbelly" for mobile/manufactured home underbelly / vapor-barrier / belly-wrap work. Set underbellyDetails.insulation true if R-19 insulation is included.
+- projectType must be one of: deck, skirting, underbelly, other`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -13387,22 +13390,16 @@ function descApplyTakeoff(){
   const det = a[a.projectType+'Details']||{};
   const m   = a.materials||{};
 
-  // Detect manufactured/mobile-home work from the description even if the AI
-  // labeled it 'other', and infer which MH job it is.
-  const rawTxt = ((document.getElementById('desc-input')?.value||'')+' '+(a.summary||'')+' '+JSON.stringify(a.materials||{})+' '+JSON.stringify(a.mobilehomeDetails||{})).toLowerCase();
-  const mhHit  = a.projectType==='mobilehome' || /mobile home|manufactured home|single[- ]?wide|double[- ]?wide|triple[- ]?wide|skirt|tie[- ]?down|re-?level|releve|underbelly|belly[- ]?wrap|vapor barrier|crossover duct|roof[- ]?over|marriage line/.test(rawTxt);
-  const mhDet  = a.mobilehomeDetails||{};
-  let mhJob = (mhDet.job||'').toLowerCase();
-  if(!['skirting','setup','roofover','underbelly'].includes(mhJob)){
-    if(/skirt/.test(rawTxt)) mhJob='skirting';
-    else if(/underbelly|belly[- ]?wrap|vapor barrier/.test(rawTxt)) mhJob='underbelly';
-    else if(/roof[- ]?over|roof coat|recoat|elastomeric|silicone/.test(rawTxt)) mhJob='roofover';
-    else if(/tie[- ]?down|re-?level|releve|\blevel\b|block|pier|marriage|set ?up|anchor/.test(rawTxt)) mhJob='setup';
-    else mhJob='skirting';
-  }
-
-  const typeMap = {deck:'deck',porch:'porch',roof:'roof',framing:'framing',concrete:'concrete',carport:'carport',mobilehome:'mobilehome'};
-  const type    = mhHit ? 'mobilehome' : (typeMap[a.projectType]||'deck');
+  // The takeoff supports three project types: deck, skirting, underbelly.
+  // Detect skirting / underbelly work (and skirting material) from the
+  // description even if the AI labeled it something else.
+  const rawTxt = ((document.getElementById('desc-input')?.value||'')+' '+(a.summary||'')+' '+JSON.stringify(a.materials||{})+' '+JSON.stringify(a.skirtingDetails||{})+' '+JSON.stringify(a.underbellyDetails||{})).toLowerCase();
+  const skMatDetect = /block|cmu|cinder/.test(rawTxt) ? 'block' : /stucco/.test(rawTxt) ? 'stucco' : 'vinyl';
+  let type;
+  if(a.projectType==='skirting' || /skirt/.test(rawTxt)) type='skirting';
+  else if(a.projectType==='underbelly' || /underbelly|belly[- ]?wrap|vapor barrier/.test(rawTxt)) type='underbelly';
+  else type='deck';
+  const mhDet = a[type+'Details']||{};
 
   switchTab('takeoff','tab-takeoff');
 
@@ -13529,20 +13526,26 @@ function descApplyTakeoff(){
       set('co-piers', det.piers||0);
     }
 
-    // ── MOBILE / MANUFACTURED HOME ───────────────────────────────────────────
-    else if(type==='mobilehome'){
-      const jobEl=document.getElementById('mh-job'); if(jobEl) jobEl.value=mhJob;
+    // ── SKIRTING ─────────────────────────────────────────────────────────────
+    else if(type==='skirting'){
+      setSelect('sk-mat', mhDet.material||skMatDetect, {block:'block',cmu:'block',cinder:'block',stucco:'stucco',vinyl:'vinyl'});
       let secs = mhDet.sections || (/triple/.test(rawTxt)?3 : /double/.test(rawTxt)?2 : /single/.test(rawTxt)?1 : null);
-      const secEl=document.getElementById('mh-sections'); if(secEl&&secs) secEl.value=String(secs);
-      const sc = parseInt(document.getElementById('mh-sections')?.value)||1;
-      set('mh-len', d.length||mhDet.length);
-      if(d.width) set('mh-wid', Math.max(8, Math.round(d.width/sc)));
-      set('mh-wallht', mhDet.wallHeight||d.height);
-      if(mhDet.groundGap) set('mh-skht', mhDet.groundGap);
-      if(mhDet.pitch||d.pitch) set('mh-pitch', mhDet.pitch||d.pitch);
-      if(mhDet.doors!=null) set('mh-doors', mhDet.doors);
-      setSelect('mh-skmat', mhDet.skirtMaterial||'', {faux:'faux',stone:'faux',insulat:'faux',vinyl:'vinyl'});
-      setSelect('mh-roofmat', mhDet.roofMaterial||'', {metal:'metal',coat:'coat',elasto:'coat',silicone:'coat',acrylic:'coat'});
+      const secEl=document.getElementById('sk-sections'); if(secEl&&secs) secEl.value=String(secs);
+      const sc = parseInt(document.getElementById('sk-sections')?.value)||1;
+      set('sk-len', d.length||mhDet.length);
+      if(d.width) set('sk-wid', Math.max(8, Math.round(d.width/sc)));
+      if(mhDet.skirtHeight||mhDet.groundGap) set('sk-skht', mhDet.skirtHeight||mhDet.groundGap);
+      if(mhDet.doors!=null) set('sk-doors', mhDet.doors);
+    }
+
+    // ── UNDERBELLY ───────────────────────────────────────────────────────────
+    else if(type==='underbelly'){
+      let secs = mhDet.sections || (/triple/.test(rawTxt)?3 : /double/.test(rawTxt)?2 : /single/.test(rawTxt)?1 : null);
+      const secEl=document.getElementById('ub-sections'); if(secEl&&secs) secEl.value=String(secs);
+      const sc = parseInt(document.getElementById('ub-sections')?.value)||1;
+      set('ub-len', d.length||mhDet.length);
+      if(d.width) set('ub-wid', Math.max(8, Math.round(d.width/sc)));
+      if(/insulat|r-?19|r19/.test(rawTxt)) setSelect('ub-insul','insul',{});
     }
 
     // Trigger calc
