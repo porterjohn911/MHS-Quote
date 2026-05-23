@@ -5726,6 +5726,54 @@ function drawConcrete2D(ctx, w, h, params){
 // ══════════════════════════════════════════════════════════════════════════
 // BLOCK WALL 2D RENDERING — Elevation + Plan + Cross-Section
 // ══════════════════════════════════════════════════════════════════════════
+// Draws an exposed-face finish (stucco / parge / paint / stone veneer) over a
+// rectangular wall face in the elevation view. `sc` = px-per-foot for sizing.
+function drawWallFinish(ctx, x, y, w, h, finish, sc){
+  if(finish === 'none' || w <= 0 || h <= 0) return;
+  ctx.save();
+  ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+  if(finish === 'stucco'){
+    ctx.fillStyle = 'rgba(231,225,210,0.88)';
+    ctx.fillRect(x, y, w, h);
+    // troweled / sand-float stipple
+    const n = Math.max(60, Math.floor(w * h / 35));
+    for(let i = 0; i < n; i++){
+      const px = x + Math.random() * w, py = y + Math.random() * h;
+      ctx.fillStyle = Math.random() < 0.5 ? 'rgba(150,140,118,0.12)' : 'rgba(255,255,255,0.14)';
+      ctx.fillRect(px, py, 1.4, 1.4);
+    }
+    // control joints
+    ctx.strokeStyle = 'rgba(120,112,96,0.28)'; ctx.lineWidth = 0.6;
+    for(let jx = x + w / 3; jx < x + w - 1; jx += w / 3){
+      ctx.beginPath(); ctx.moveTo(jx, y); ctx.lineTo(jx, y + h); ctx.stroke();
+    }
+  } else if(finish === 'parge'){
+    ctx.fillStyle = 'rgba(206,202,192,0.90)';
+    ctx.fillRect(x, y, w, h);
+  } else if(finish === 'paint'){
+    // thin wash — block coursing still reads through
+    ctx.fillStyle = 'rgba(240,238,232,0.42)';
+    ctx.fillRect(x, y, w, h);
+  } else if(finish === 'stone'){
+    ctx.fillStyle = 'rgba(120,108,92,0.88)';
+    ctx.fillRect(x, y, w, h);
+    const bandH = Math.max(7, 0.5 * sc);
+    ctx.strokeStyle = 'rgba(40,32,24,0.55)'; ctx.lineWidth = 0.8;
+    let stagger = 0;
+    for(let by = y; by < y + h; by += bandH){
+      // stone shading blocks
+      for(let bx = x + (stagger ? bandH * 0.8 : 0); bx < x + w; bx += bandH * 1.6){
+        const r = 90 + (Math.random() * 55 | 0), g = 78 + (Math.random() * 46 | 0), b = 64 + (Math.random() * 38 | 0);
+        ctx.fillStyle = `rgba(${r},${g},${b},0.40)`;
+        ctx.fillRect(bx + 1, by + 1, bandH * 1.5 - 2, bandH - 2);
+        ctx.strokeRect(bx, by, Math.min(bandH * 1.6, x + w - bx), Math.min(bandH, y + h - by));
+      }
+      stagger ^= 1;
+    }
+  }
+  ctx.restore();
+}
+
 function drawBlockwall2D(ctx, w, h, params){
   const {wallType, len, ht, blkSz, style, fill, vReb, cap, footer, footerDims,
          fdep, drain, finish, wp, courses, corners, pilast} = params;
@@ -5844,6 +5892,9 @@ function drawBlockwall2D(ctx, w, h, params){
     ctx.fillRect(0, 0, EW, EH);
   }
 
+  // ── EXPOSED-FACE FINISH (stucco / parge / paint / stone veneer) ──────────
+  drawWallFinish(ctx, 0, 0, EW, EH, finish, scEl);
+
   // ── CAP ─────────────────────────────────────────────────────────────────
   if(cap !== 'none'){
     const capH = 4 / 12 * scEl;
@@ -5870,7 +5921,8 @@ function drawBlockwall2D(ctx, w, h, params){
   ctx.fillStyle = C.dimText; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center';
   ctx.fillText('ELEVATION', EW / 2, -32);
   ctx.font = '8px monospace';
-  ctx.fillText(`${({straight:'Freestanding', retaining:'Retaining', underhome:'Crawlspace Stem', piers:'Block Piers'}[wallType])} · running bond`, EW / 2, -20);
+  const finishLbl = {paint:'painted', stucco:'stucco finish', parge:'parge coat', stone:'stone veneer'}[finish] || '';
+  ctx.fillText(`${({straight:'Freestanding', retaining:'Retaining', underhome:'Crawlspace Stem', piers:'Block Piers'}[wallType])} · running bond${finishLbl ? ' · ' + finishLbl : ''}`, EW / 2, -20);
 
   ctx.restore();
 
@@ -6093,6 +6145,17 @@ function drawBlockwall2D(ctx, w, h, params){
   // Wall outline
   ctx.strokeStyle = C.line; ctx.lineWidth = 1.5;
   ctx.strokeRect(wallX, wallY, blockWPx, wallHPx);
+
+  // Exposed-face finish coat (opposite the buried/earth side)
+  if(finish !== 'none'){
+    const coatW = finish === 'stone' ? blockWPx * 0.20 : (finish === 'paint' ? 1.6 : blockWPx * 0.10);
+    const fx = wallX + blockWPx; // right face is the exposed face
+    ctx.fillStyle = {paint:'rgba(240,238,232,0.92)', stucco:'#e7e1d2', parge:'#cecac0', stone:'#786c5c'}[finish] || '#e7e1d2';
+    ctx.fillRect(fx, wallY, coatW, wallHPx);
+    ctx.strokeStyle = C.line; ctx.lineWidth = 0.6;
+    ctx.strokeRect(fx, wallY, coatW, wallHPx);
+    callout(ctx, fx + coatW + 6, wallY + 6, ({paint:'Paint', stucco:'Stucco', parge:'Parge', stone:'Stone veneer'}[finish]));
+  }
 
   // Cap
   if(cap !== 'none'){
