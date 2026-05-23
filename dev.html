@@ -1925,6 +1925,59 @@ const TASKS = [
   {name:"Deck board — Trex Transcend 12ft",cat:"Deck Accessories",icon:"🪵",unit:"ea",unitLabel:"each",hrsPerUnit:.04,rateKey:"sk",matPerUnit:53,notes:"$53.28 per board. AdvantageLumber Jan 2025"},
   {name:"Deck board — Trex Transcend 16ft",cat:"Deck Accessories",icon:"🪵",unit:"ea",unitLabel:"each",hrsPerUnit:.05,rateKey:"sk",matPerUnit:71,notes:"AdvantageLumber Jan 2025"},
 
+  // ══ MANUFACTURED / MOBILE HOME ═══════════════════════════════════════════
+  // MH-specific setup, skirting, underbelly, utilities, roofing & repair tasks.
+  // Pricing calibrated to 2026 industry data (Angi, HomeGuide, This Old House,
+  // Mobile Home Friend, HUD setup guides). Labor = hrsPerUnit × crew rate.
+
+  // ── MH SETUP & LEVELING ──────────────────────────────────
+  {name:"MH releveling — adjust pier & shim",cat:"MH Setup & Leveling",icon:"📏",unit:"ea",unitLabel:"piers",hrsPerUnit:.4,rateKey:"sk",matPerUnit:6,notes:"Re-shim existing pier to level. Single-wide ~15-20 piers; relevel avg $450-900 (Angi/HomeGuide 2026)"},
+  {name:"MH pier & block stack — new (ABS pad)",cat:"MH Setup & Leveling",icon:"🧱",unit:"ea",unitLabel:"piers",hrsPerUnit:1.0,rateKey:"sk",matPerUnit:38,notes:"New pier: ABS pad, CMU stack, cap & hardwood shims. ~$200-500/pier full replace (HomeGuide 2026)"},
+  {name:"MH marriage line synchronization (double-wide)",cat:"MH Setup & Leveling",icon:"🏗️",unit:"ea",unitLabel:"homes",hrsPerUnit:12,rateKey:"sk",matPerUnit:180,notes:"Sync two frames at marriage line, close ceiling/floor gap. $750-1,200 (Mobile Home Friend 2026)"},
+  {name:"MH tie-down anchor — auger install",cat:"MH Setup & Leveling",icon:"⚓",unit:"ea",unitLabel:"anchors",hrsPerUnit:.6,rateKey:"sk",matPerUnit:32,notes:"HUD-certified auger anchor + strap. Single-wide 10-20, double-wide 30-40; full job $1,000-1,500"},
+  {name:"MH tie-down strap — add to existing anchor",cat:"MH Setup & Leveling",icon:"⚓",unit:"ea",unitLabel:"straps",hrsPerUnit:.35,rateKey:"sk",matPerUnit:14,notes:"Frame/over-the-top strap to existing anchor. ~$500-800 when anchors present"},
+  {name:"MH initial set & block — single-wide",cat:"MH Setup & Leveling",icon:"🏠",unit:"ea",unitLabel:"homes",hrsPerUnit:16,rateKey:"sk",matPerUnit:420,notes:"Position, block, level & shim on pier-and-beam. Excludes transport/crane. Pier system $1,000-2,000"},
+  {name:"MH initial set & block — double-wide",cat:"MH Setup & Leveling",icon:"🏠",unit:"ea",unitLabel:"homes",hrsPerUnit:28,rateKey:"sk",matPerUnit:850,notes:"Two sections, mate at marriage line, block & level. Pier system $2,000-4,000 (Amerisave 2026)"},
+  {name:"MH hitch / axle / wheel removal",cat:"MH Setup & Leveling",icon:"🛞",unit:"ea",unitLabel:"homes",hrsPerUnit:2,rateKey:"sk",matPerUnit:0,notes:"Remove towing hitch, axles & wheels after set (where local code permits)"},
+
+  // ── MH SKIRTING ──────────────────────────────────────────
+  {name:"Vinyl skirting — install",cat:"MH Skirting",icon:"🏠",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.11,rateKey:"side",matPerUnit:5,notes:"Panels, top/bottom rail, ground stakes. ~$6-12/lf labor + $2-5/lf material (Angi 2026)"},
+  {name:"Skirting tear-off / disposal",cat:"MH Skirting",icon:"🔨",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.05,rateKey:"gen",matPerUnit:0,notes:"Remove & dispose old skirting. Typical $200-500 total"},
+  {name:"Skirting access door",cat:"MH Skirting",icon:"🚪",unit:"ea",unitLabel:"each",hrsPerUnit:.5,rateKey:"side",matPerUnit:65,notes:"18×24 or larger access panel. Door $50-85 (Angi 2026)"},
+  {name:"Foundation / skirting vent",cat:"MH Skirting",icon:"🌬️",unit:"ea",unitLabel:"each",hrsPerUnit:.25,rateKey:"side",matPerUnit:14,notes:"Code: ~1 sqft net vent per 150 sqft of crawl. Vents $7-25 ea"},
+  {name:"Insulated / faux-stone skirting — upgrade",cat:"MH Skirting",icon:"🪨",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.16,rateKey:"side",matPerUnit:14,notes:"Faux-stone or insulated panel premium over standard vinyl"},
+
+  // ── MH UNDERBELLY & INSULATION ───────────────────────────
+  {name:"Belly wrap (bottom board) repair",cat:"MH Underbelly",icon:"🩹",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.012,rateKey:"gen",matPerUnit:.35,notes:"Patch/replace poly belly wrap + Flex-Mend tape over tears"},
+  {name:"Underbelly vapor barrier — replace",cat:"MH Underbelly",icon:"🛡️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.018,rateKey:"gen",matPerUnit:.55,notes:"6-10 mil reinforced poly. ~$2-4/sqft installed; single-wide $1,215-1,805 (CountBricks 2026)"},
+  {name:"Underbelly insulation — R-19 batt",cat:"MH Underbelly",icon:"🧶",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.02,rateKey:"gen",matPerUnit:1.1,notes:"R-19 fiberglass into floor cavity + re-wrap belly. Single-wide $1,203-2,807 (Mobile Home Friend 2026)"},
+  {name:"Underbelly spray foam — closed-cell",cat:"MH Underbelly",icon:"🫧",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.02,rateKey:"sub",matPerUnit:1.8,notes:"Closed-cell foam to underside. $1.50-4.50/sqft applied (Kraken Bond 2026)"},
+
+  // ── MH UTILITIES & CROSSOVER ─────────────────────────────
+  {name:"Crossover duct — replace (double-wide)",cat:"MH Utilities",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:2.5,rateKey:"hvac",matPerUnit:110,notes:"Insulated crossover between sections, metal band both ends + mastic tape (Mobile Home Doctor)"},
+  {name:"Heat tape — water line freeze protection",cat:"MH Utilities",icon:"🔥",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.08,rateKey:"plumb",matPerUnit:3.5,notes:"Self-regulating heat tape + pipe insulation on supply riser"},
+  {name:"Water supply hookup — MH set",cat:"MH Utilities",icon:"💧",unit:"ea",unitLabel:"each",hrsPerUnit:4,rateKey:"plumb",matPerUnit:120,notes:"Connect home to meter/well: PEX riser, shutoff, pressure regulator. Service tap separate"},
+  {name:"Sewer / drain hookup — MH set",cat:"MH Utilities",icon:"🪠",unit:"ea",unitLabel:"each",hrsPerUnit:5,rateKey:"plumb",matPerUnit:140,notes:"Tie home drain to septic/sewer: 3-4\" ABS, cleanout, proper slope"},
+  {name:"Electrical feeder hookup — MH set",cat:"MH Utilities",icon:"⚡",unit:"ea",unitLabel:"each",hrsPerUnit:6,rateKey:"elec",matPerUnit:180,notes:"Connect feeder to pedestal/panel & bond. Excludes utility service drop"},
+  {name:"Dryer vent to exterior — MH",cat:"MH Utilities",icon:"🌀",unit:"ea",unitLabel:"each",hrsPerUnit:1.25,rateKey:"hvac",matPerUnit:22,notes:"4\" metal duct through floor/skirting with cap & damper"},
+  {name:"Setup permit & install inspection",cat:"MH Utilities",icon:"📋",unit:"ea",unitLabel:"each",hrsPerUnit:2,rateKey:"fore",matPerUnit:250,notes:"Pull setup permit, schedule HUD/state install inspection. Permit fees vary $150-2,300 by jurisdiction"},
+
+  // ── MH ROOFING ───────────────────────────────────────────
+  {name:"Roof-over coating — elastomeric",cat:"MH Roofing",icon:"🪣",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.012,rateKey:"roof",matPerUnit:.9,notes:"Clean, prime, 2 coats elastomeric on metal/flat MH roof. $0.50-4.50/sqft (HomeGuide 2026)"},
+  {name:"Metal roof recoat — silicone",cat:"MH Roofing",icon:"🛢️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.014,rateKey:"roof",matPerUnit:1.4,notes:"Rust-treat + silicone; best for ponding/cold. $1.50-3/sqft metal (Angi 2026)"},
+  {name:"Metal roof-over kit — install",cat:"MH Roofing",icon:"🏚️",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.03,rateKey:"roof",matPerUnit:2.6,notes:"New metal panels over existing flat roof: furring, panels, screws, trim"},
+  {name:"Roof seam / vent re-seal",cat:"MH Roofing",icon:"🩹",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.06,rateKey:"roof",matPerUnit:1.2,notes:"Butyl tape + coating over seams, roof jacks & vents"},
+
+  // ── MH INTERIOR REPAIRS ──────────────────────────────────
+  {name:"Soft floor / subfloor — spot repair",cat:"MH Repairs",icon:"🪵",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.12,rateKey:"sk",matPerUnit:3.2,notes:"Cut out rotted decking, sister joist as needed, new 3/4\" ply. $2-10/sqft (Angi 2026)"},
+  {name:"Subfloor replacement — room",cat:"MH Repairs",icon:"🪵",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.06,rateKey:"sk",matPerUnit:2.4,notes:"Larger-area decking replace. Material $2-4.50/sqft; full replace $1,800-3,000"},
+  {name:"Wall panel (VOG) — replace",cat:"MH Repairs",icon:"🔲",unit:"sheet",unitLabel:"4×8 sheets",hrsPerUnit:1.5,rateKey:"sk",matPerUnit:28,notes:"Vinyl-over-gypsum panel; batten strips cover seams"},
+  {name:"Batten strips — replace",cat:"MH Repairs",icon:"➖",unit:"lf",unitLabel:"lin ft",hrsPerUnit:.06,rateKey:"sk",matPerUnit:.9,notes:"Vinyl batten covering panel seams (every 4-8 ft)"},
+  {name:"Ceiling panel — replace",cat:"MH Repairs",icon:"🔳",unit:"sqft",unitLabel:"sq ft",hrsPerUnit:.09,rateKey:"sk",matPerUnit:1.6,notes:"MH ceiling panel + batten; match texture"},
+  {name:"MH replacement window — install",cat:"MH Repairs",icon:"🪟",unit:"ea",unitLabel:"each",hrsPerUnit:2,rateKey:"sk",matPerUnit:240,notes:"MH-size single/double window. $250-700 installed (HomeGuide 2026)"},
+  {name:"MH exterior door — replace",cat:"MH Repairs",icon:"🚪",unit:"ea",unitLabel:"each",hrsPerUnit:3,rateKey:"sk",matPerUnit:320,notes:"MH-size out-swing door + frame, weatherstrip & threshold"},
+  {name:"MH interior door (prehung) — replace",cat:"MH Repairs",icon:"🚪",unit:"ea",unitLabel:"each",hrsPerUnit:1.5,rateKey:"sk",matPerUnit:95,notes:"MH-size prehung interior door; trim & hardware"},
+
 
 ];
 
