@@ -1620,6 +1620,59 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
 <script>
 // ══════════════════════════════════════════════════════════
+// ENVIRONMENT  (development vs production)
+// Auto-detected from the URL. Production keeps the original
+// saved-data keys untouched; development transparently sandboxes
+// its own copy so background experiments never read or overwrite
+// the team's live prices / quotes / specs.
+// ══════════════════════════════════════════════════════════
+(function(){
+  // Your live Netlify / custom domains. Anything not listed here that
+  // looks like a Netlify branch or deploy-preview (contains "--"), or a
+  // local file, is treated as DEVELOPMENT. Add ?env=dev or ?env=prod to
+  // any URL to force a mode.
+  const PRODUCTION_HOSTS = [
+    // 'mhs-quote.netlify.app',
+    // 'quote.yourdomain.com',
+  ];
+  const host = location.hostname || '';
+  const force = new URLSearchParams(location.search).get('env');
+  const isLocal = location.protocol === 'file:' ||
+    /^(localhost|127\.|0\.0\.0\.0|10\.|192\.168\.)/.test(host);
+  const isBranchOrPreview = host.indexOf('--') !== -1; // Netlify branch / deploy-preview
+  const inProdList = PRODUCTION_HOSTS.indexOf(host) !== -1;
+
+  let env;
+  if (force === 'prod' || force === 'production') env = 'production';
+  else if (force === 'dev' || force === 'development') env = 'development';
+  else if (isLocal || isBranchOrPreview) env = 'development';
+  else if (PRODUCTION_HOSTS.length && !inProdList) env = 'development';
+  else env = 'production';
+
+  window.APP_ENV = env;
+  window.IS_DEV = env === 'development';
+
+  if (env === 'development') {
+    // 1) Sandbox this app's localStorage keys behind a "dev::" prefix.
+    const PREFIX = 'dev::';
+    const OWN = /^(qb_|wfs_cad_)/; // keys this app owns
+    const proto = window.Storage && Storage.prototype;
+    if (proto) {
+      const _get = proto.getItem, _set = proto.setItem, _rem = proto.removeItem;
+      proto.getItem = function(k){ if(this===window.localStorage && OWN.test(k)) k = PREFIX+k; return _get.call(this,k); };
+      proto.setItem = function(k,v){ if(this===window.localStorage && OWN.test(k)) k = PREFIX+k; return _set.call(this,k,v); };
+      proto.removeItem = function(k){ if(this===window.localStorage && OWN.test(k)) k = PREFIX+k; return _rem.call(this,k); };
+    }
+    // 2) Make it impossible to confuse environments.
+    try { document.title = '[DEV] ' + document.title; } catch(e){}
+    const ribbon = document.createElement('div');
+    ribbon.textContent = 'DEVELOPMENT';
+    ribbon.style.cssText = 'position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:99999;background:#e05252;color:#fff;font:600 9px/1 "DM Sans",sans-serif;letter-spacing:.14em;padding:4px 12px;border-radius:0 0 8px 8px;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.45)';
+    (document.body || document.documentElement).appendChild(ribbon);
+  }
+})();
+
+// ══════════════════════════════════════════════════════════
 // TASK LIBRARY
 // ══════════════════════════════════════════════════════════
 const TASKS = [
