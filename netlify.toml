@@ -1,24 +1,27 @@
 # Netlify configuration for the MHS Quote Builder.
 # This is a single static HTML app (no build step).
 #
-# Recommended setup for "live for the team" + "keep working in the background":
-#   1. Connect this repo to a Netlify site.
-#   2. Production branch  = main   -> your live URL  (e.g. mhs-quote.netlify.app)
-#   3. Enable Branch deploys for "dev" (Site settings > Build & deploy > Branches)
-#      -> automatically gives you  dev--mhs-quote.netlify.app
-#   The app auto-detects which one it is and sandboxes dev's saved data.
+# Two entry files live in this repo, deployed to ONE Netlify site:
+#   index.html  ->  https://<your-site>/           (PRODUCTION, your team)
+#   dev.html    ->  https://<your-site>/dev.html    (DEVELOPMENT, you)
+#
+# The app auto-detects which one it is from the URL and sandboxes
+# development's saved data, so dev work never touches the team's live
+# prices / quotes / specs.
+#
+# Release workflow: edit dev.html, test it at /dev.html, and when you're
+# happy copy it over index.html and commit — that publishes to the team.
 
 [build]
   publish = "."
 
-# Always serve the app for any path.
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-# Make sure the team always loads the latest released HTML.
+# Always load the latest released HTML (no stale cache after a deploy).
 [[headers]]
   for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/dev.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
